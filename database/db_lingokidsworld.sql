@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-04-2025 a las 20:10:48
+-- Tiempo de generación: 03-04-2025 a las 20:26:17
 -- Versión del servidor: 10.5.23-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -89,7 +89,32 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (25, 'Can add perfil infantil', 7, 'add_perfilinfantil'),
 (26, 'Can change perfil infantil', 7, 'change_perfilinfantil'),
 (27, 'Can delete perfil infantil', 7, 'delete_perfilinfantil'),
-(28, 'Can view perfil infantil', 7, 'view_perfilinfantil');
+(28, 'Can view perfil infantil', 7, 'view_perfilinfantil'),
+(29, 'Can add cuento', 8, 'add_cuento'),
+(30, 'Can change cuento', 8, 'change_cuento'),
+(31, 'Can delete cuento', 8, 'delete_cuento'),
+(32, 'Can view cuento', 8, 'view_cuento');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cuentos_cuento`
+--
+
+CREATE TABLE `cuentos_cuento` (
+  `id` bigint(20) NOT NULL,
+  `idioma` varchar(50) NOT NULL,
+  `titulo` varchar(200) NOT NULL,
+  `contenido` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`contenido`)),
+  `personalizable` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `cuentos_cuento`
+--
+
+INSERT INTO `cuentos_cuento` (`id`, `idioma`, `titulo`, `contenido`, `personalizable`) VALUES
+(1, 'es', 'El dragón curioso', '{\"escenas\": [{\"id\": 1, \"texto\": \"\\u00c9rase una vez un drag\\u00f3n curioso que quer\\u00eda aprender a volar.\", \"opciones\": [{\"texto\": \"Intentar saltar desde un \\u00e1rbol\", \"siguiente\": 2}, {\"texto\": \"Leer un libro sobre vuelo\", \"siguiente\": 3}]}, {\"id\": 2, \"texto\": \"Se cay\\u00f3... pero no se rindi\\u00f3.\", \"opciones\": []}, {\"id\": 3, \"texto\": \"Aprendi\\u00f3 la teor\\u00eda... \\u00a1y luego vol\\u00f3!\", \"opciones\": []}]}', 0);
 
 -- --------------------------------------------------------
 
@@ -107,6 +132,13 @@ CREATE TABLE `django_admin_log` (
   `content_type_id` int(11) DEFAULT NULL,
   `user_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `django_admin_log`
+--
+
+INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
+(1, '2025-04-03 18:22:53.549952', '1', 'El dragón curioso (es)', 1, '[{\"added\": {}}]', 8, 1);
 
 -- --------------------------------------------------------
 
@@ -129,6 +161,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (3, 'auth', 'group'),
 (2, 'auth', 'permission'),
 (4, 'contenttypes', 'contenttype'),
+(8, 'cuentos', 'cuento'),
 (5, 'sessions', 'session'),
 (7, 'users', 'perfilinfantil'),
 (6, 'users', 'user');
@@ -170,7 +203,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (17, 'admin', '0002_logentry_remove_auto_add', '2025-04-03 18:06:48.671461'),
 (18, 'admin', '0003_logentry_add_action_flag_choices', '2025-04-03 18:06:48.679591'),
 (19, 'sessions', '0001_initial', '2025-04-03 18:06:48.734040'),
-(20, 'users', '0002_perfilinfantil', '2025-04-03 18:06:48.838983');
+(20, 'users', '0002_perfilinfantil', '2025-04-03 18:06:48.838983'),
+(21, 'cuentos', '0001_initial', '2025-04-03 18:17:09.185846');
 
 -- --------------------------------------------------------
 
@@ -183,6 +217,13 @@ CREATE TABLE `django_session` (
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('2bdrakso52132qy03iwg3atti25q2utm', '.eJxVjEEOwiAQRe_C2pBhwGJduu8ZyMAMUjU0Ke3KeHfbpAvd_vfef6tA61LC2mQOI6urMur0u0VKT6k74AfV-6TTVJd5jHpX9EGbHiaW1-1w_w4KtbLVhJ0xmAE9d9bEs_WZABzbKNTbaLMwIQoCgQBIJsfoXW_dJsaLSerzBdiIN9M:1u0P8J:IuPdbNrhsY_QxGYbmgbMPUL66flykgPsvZplghf-rhw', '2025-04-17 18:17:43.020205');
 
 -- --------------------------------------------------------
 
@@ -225,7 +266,7 @@ CREATE TABLE `users_user` (
 --
 
 INSERT INTO `users_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `es_padre`, `es_infantil`) VALUES
-(1, 'pbkdf2_sha256$870000$coeolE6sApDaKADxJSosOM$tpJfhbFo6c56a1T2XsPdk4URxj87OXiTMyb0NThLgUk=', NULL, 1, 'admin_lkw', '', '', '', 1, 1, '2025-04-03 18:07:31.139214', 0, 0);
+(1, 'pbkdf2_sha256$870000$coeolE6sApDaKADxJSosOM$tpJfhbFo6c56a1T2XsPdk4URxj87OXiTMyb0NThLgUk=', '2025-04-03 18:17:43.014404', 1, 'admin_lkw', '', '', '', 1, 1, '2025-04-03 18:07:31.139214', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -276,6 +317,12 @@ ALTER TABLE `auth_group_permissions`
 ALTER TABLE `auth_permission`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`);
+
+--
+-- Indices de la tabla `cuentos_cuento`
+--
+ALTER TABLE `cuentos_cuento`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `django_admin_log`
@@ -355,25 +402,31 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT de la tabla `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT de la tabla `cuentos_cuento`
+--
+ALTER TABLE `cuentos_cuento`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `users_perfilinfantil`
