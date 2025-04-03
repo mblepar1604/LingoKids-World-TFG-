@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .models import PerfilInfantil
 
 # Register your models here.
 from django.contrib import admin
@@ -13,3 +14,7 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(User, CustomUserAdmin)
+
+@admin.register(PerfilInfantil)
+class PerfilInfantilAdmin(admin.ModelAdmin):
+    list_display = ['nombre', 'edad', 'usuario_padre', 'avatar']
