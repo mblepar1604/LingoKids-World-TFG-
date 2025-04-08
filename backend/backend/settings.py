@@ -38,9 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'users',
     'cuentos',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,14 +83,29 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#MARTIN
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'db_lingokidsworld',
+#         'USER': 'root',
+#         'PASSWORD': 'admin',  # contraseña root
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'OPTIONS': {
+#             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+#ANTONIO
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_lingokidsworld',
+        'NAME': 'db_lingokidsworlds',
         'USER': 'root',
-        'PASSWORD': 'admin',  # contraseña root
+        'PASSWORD': 'root',  # contraseña root
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '3307',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
@@ -134,3 +156,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Indicamos que usaremos nuestro propio modelo de usuario
 AUTH_USER_MODEL = 'users.User'
+
+# Configuración de JWT
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Tiempo de vida del token de acceso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Tiempo de vida del token de refresco
+    'ROTATE_REFRESH_TOKENS': False,                   # No rota los tokens de refresco
+    'BLACKLIST_AFTER_ROTATION': False,
+    'ALGORITHM': 'HS256',                             # Algoritmo de encriptación
+    'SIGNING_KEY': '114568682a051b4de489e73095e922caf371529382b194367d6bb45fff7b1d53',                 # Clave secreta para firmar los tokens (debe ser única y segura)
+}

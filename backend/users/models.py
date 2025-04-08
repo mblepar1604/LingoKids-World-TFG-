@@ -22,3 +22,13 @@ class PerfilInfantil(models.Model):
 
     def __str__(self):
         return f"{self.nombre} (Hijo/a de {self.usuario_padre.username})"
+
+class Progreso(models.Model):
+    idioma = models.CharField(max_length=100)
+    logros = models.TextField()  # Descripción de logros
+    tiempo = models.IntegerField()  # Tiempo en minutos, por ejemplo
+    fecha_creacion = models.DateTimeField(auto_now_add=True)  # Fecha de creación del progreso
+    perfil_infantil = models.ForeignKey('PerfilInfantil', related_name='progresos', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"Progreso de {self.perfil_infantil.usuario_padre.username} en {self.idioma}"
