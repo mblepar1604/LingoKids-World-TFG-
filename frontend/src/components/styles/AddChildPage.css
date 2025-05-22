@@ -1,0 +1,72 @@
+.add-child-page-wrapper {
+  max-width: 480px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.add-child-page-wrapper h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.add-child-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-child-form label {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.add-child-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-child-form button {
+  margin-top: 1rem;
+  padding: 0.6rem;
+  background: #5b9bd5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-child-form button:hover {
+  background: #4a8ac2;
+}
+
+.children-list {
+  margin-top: 1.5rem;
+}
+
+.children-list h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.children-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.children-list li {
+  background: #f9f9f9;
+  padding: 0.6rem 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333;
+}

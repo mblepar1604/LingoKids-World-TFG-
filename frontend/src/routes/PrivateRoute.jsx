@@ -5,18 +5,20 @@ import { AuthContext } from '../contexts/AuthContext';
 const PrivateRoute = ({ role }) => {
   const { user } = useContext(AuthContext);
 
-  // 1) Si no hay usuario: al login
+  // Si no estás logueado, vas a /login
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // 2) Si pides un rol concreto (p. ej. padre) y no coincide:
-  if (role && user.rol !== role) {
-    // redirige a Home si el rol no cuadra
+  // Si necesitas un rol concreto y no coincide, redirige a Home
+  if (role === 'padre' && !user.es_padre) {
+    return <Navigate to="/" replace />;
+  }
+  if (role === 'nino' && !user.es_infantil) {
     return <Navigate to="/" replace />;
   }
 
-  // 3) Si todo ok, renderiza la ruta hija
+  // Si todo OK, renderiza la ruta hija
   return <Outlet />;
 };
 

@@ -7,41 +7,54 @@ import './styles/Login.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const [error, setError]       = useState('');
+  const navigate                = useNavigate();
+  const { login }               = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      // 1️⃣ Obtener tokens
+      // 1) Obtener tokens del DRF simplejwt
       const { data: tokens } = await axios.post('/api/token/', {
         username,
         password
       });
+      // tokens = { refresh: '...', access: '...' }
 
-      // 2️⃣ Guardar el access token bajo la key "token"
-      localStorage.setItem('token', tokens.access);
-      localStorage.setItem('refresh', tokens.refresh);
+      // 2) Configuramos el header de axios con el access token
+      axios.defaults.headers.common['Authorization'] =
+        `Bearer ${tokens.access}`;
 
-      // 3️⃣ Configurar Axios para usar el nuevo token
-      axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.access}`;
-
-      // 4️⃣ Obtener datos del usuario
+      // 3) Petición para obtener datos del usuario actual
       const { data: userData } = await axios.get('/api/users/me/');
 
-      // 5️⃣ Actualizar estado global y redirigir
-      login(userData);
+      // 4) Guardamos en localStorage y contexto
+      login(
+        { 
+          ...userData,
+          // opcional: mantén los campos booleanos
+          es_padre: userData.es_padre,
+          es_infantil: userData.es_infantil
+        },
+        {
+          access_token: tokens.access,
+          refresh_token: tokens.refresh
+        }
+      );
+
+      // 5) Navegar al Home
       navigate('/');
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError('Usuario o contraseña incorrectos');
     }
   };
 
-  function renderForm() {
-    return (
+  // HTML extraído a función aparte
+  const renderForm = () => (
+    <div className="login-page">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2 className="login-title">Iniciar Sesión</h2>
         {error && <div className="error">{error}</div>}
@@ -70,14 +83,10 @@ const Login = () => {
           ¿No tienes cuenta? <Link to="/registro">Regístrate aquí</Link>
         </p>
       </form>
-    );
-  }
-
-  return (
-    <div className="login-page">
-      {renderForm()}
     </div>
   );
+
+  return renderForm();
 };
 
 export default Login;

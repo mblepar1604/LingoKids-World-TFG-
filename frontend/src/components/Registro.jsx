@@ -7,30 +7,34 @@ const Registro = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    rol: 'padre',
+    es_padre: true,      // en backend usa es_padre / es_infantil
+    es_infantil: false,
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, type, value, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
-
     try {
-      await axios.post('/api/register/', formData);
+      await axios.post('/api/users/registro/', formData);
       navigate('/login');
-    } catch (err) {
+    } catch {
       setError('Error al registrar usuario');
-      console.error(err);
     }
   };
 
-  function renderForm() {
-    return (
+  // HTML extraído a función aparte
+  const renderForm = () => (
+    <div className="register-page">
       <form className="register-form" onSubmit={handleSubmit}>
         <h2 className="register-title">Registro</h2>
         {error && <div className="error">{error}</div>}
@@ -56,17 +60,14 @@ const Registro = () => {
             required
           />
         </label>
-        <label className="register-label">
-          Rol
-          <select
-            name="rol"
-            className="register-input"
-            value={formData.rol}
+        {/* Solo registro de padres ahora */}
+        <label className="register-label checkbox">
+          <input
+            type="checkbox"
+            name="es_padre"
+            checked={formData.es_padre}
             onChange={handleChange}
-          >
-            <option value="padre">Padre</option>
-            <option value="nino">Niño</option>
-          </select>
+          /> Soy padre
         </label>
         <button type="submit" className="register-button">
           Registrarse
@@ -75,14 +76,10 @@ const Registro = () => {
           ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
         </p>
       </form>
-    );
-  }
-
-  return (
-    <div className="register-page">
-      {renderForm()}
     </div>
   );
+
+  return renderForm();
 };
 
 export default Registro;

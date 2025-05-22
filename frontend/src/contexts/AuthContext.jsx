@@ -1,28 +1,34 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 
+// 1) Creamos el contexto
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  // Al montar, cargamos del localStorage si ya hay un usuario guardado
-  useEffect(() => {
-    const stored = localStorage.getItem('user');
-    if (stored) {
-      setUser(JSON.parse(stored));
+  // 2) Inicializamos el estado desde localStorage, SÍNCRONO
+  const [user, setUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem('user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
     }
-  }, []);
+  });
 
-  // Función para hacer login (guarda en localStorage + estado)
-  const login = (userData) => {
+  // 3) Función de login: guarda en localStorage y en estado
+  const login = (userData, tokens) => {
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', tokens.access_token);
+    localStorage.setItem('refresh', tokens.refresh_token);
     setUser(userData);
   };
 
-  // Función para hacer logout (limpia localStorage + estado)
+  // 4) Función de logout: limpia y fuerza redirección
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh');
     setUser(null);
+    window.location.href = '/login';
   };
 
   return (
