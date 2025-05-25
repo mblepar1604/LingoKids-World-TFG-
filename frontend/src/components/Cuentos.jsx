@@ -9,6 +9,7 @@ import './styles/Navbar.css';
 const Cuentos = () => {
   const [cuentos, setCuentos] = useState([]);
   const [filtros, setFiltros] = useState({ idioma: '', categoria: '', personalizable: '' });
+  const [categoriasUnicas, setCategoriasUnicas] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [cuentoActivo, setCuentoActivo] = useState(null);
   const [escenaActual, setEscenaActual] = useState(null);
@@ -41,6 +42,9 @@ const Cuentos = () => {
       try {
         const res = await axios.get('http://localhost:8000/api/cuentos/');
         setCuentos(res.data);
+        const categorias = res.data.map(c => c.categoria).filter(Boolean);
+          const unicas = [...new Set(categorias)];
+          setCategoriasUnicas(unicas);
       } catch (err) {
         const refresh = localStorage.getItem('refresh_token');
         if (!refresh) {
@@ -122,11 +126,12 @@ const Cuentos = () => {
               <option value="en">Inglés</option>
             </select>
 
-            <select onChange={(e) => setFiltros(prev => ({ ...prev, categoria: e.target.value }))}>
-              <option value="">Todas las categorías</option>
-              <option value="Aventura">Aventura</option>
-              <option value="Animales">Animales</option>
-            </select>
+           <select onChange={(e) => setFiltros(prev => ({ ...prev,categoria: e.target.value }))}>
+            <option value="">Todas las categorías</option>
+            {categoriasUnicas.map((cat, i) => (
+              <option key={i} value={cat}>{cat}</option>
+            ))}
+          </select>
 
             <select onChange={(e) => setFiltros(prev => ({ ...prev, personalizable: e.target.value }))}>
               <option value="">Todos</option>
