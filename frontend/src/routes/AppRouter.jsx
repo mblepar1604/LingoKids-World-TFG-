@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
-import Navbar from '../components/Navbar';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Registro from '../components/Registro';
@@ -26,7 +25,6 @@ const AppRouter = () => {
 
   return (
     <>
-      {!hideNavbar && <Navbar />}
 
       <Routes>
         {/* Rutas públicas */}
