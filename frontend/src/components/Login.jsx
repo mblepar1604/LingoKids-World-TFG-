@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext';
@@ -16,25 +16,17 @@ const Login = () => {
     setError('');
 
     try {
-      // 1) Obtener tokens del DRF simplejwt
-      const { data: tokens } = await axios.post('/api/token/', {
-        username,
-        password
-      });
-      // tokens = { refresh: '...', access: '...' }
+      const { data: tokens } = await axios.post('/api/token/', { username, password });
 
-      // 2) Configuramos el header de axios con el access token
-      axios.defaults.headers.common['Authorization'] =
-        `Bearer ${tokens.access}`;
+      localStorage.setItem('access_token', tokens.access);
+      localStorage.setItem('refresh_token', tokens.refresh);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.access}`;
 
-      // 3) Petición para obtener datos del usuario actual
       const { data: userData } = await axios.get('/api/users/me/');
 
-      // 4) Guardamos en localStorage y contexto
       login(
         { 
           ...userData,
-          // opcional: mantén los campos booleanos
           es_padre: userData.es_padre,
           es_infantil: userData.es_infantil
         },
@@ -44,7 +36,6 @@ const Login = () => {
         }
       );
 
-      // 5) Navegar al Home
       navigate('/');
     } catch (err) {
       console.error(err);
@@ -52,7 +43,6 @@ const Login = () => {
     }
   };
 
-  // HTML extraído a función aparte
   const renderForm = () => (
     <div className="login-page">
       <form className="login-form" onSubmit={handleSubmit}>
