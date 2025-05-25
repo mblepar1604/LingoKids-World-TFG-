@@ -1,0 +1,47 @@
+.perfil-page {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.perfil-page h2, .perfil-page h3 {
+  text-align: center;
+}
+
+.perfil-page label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.perfil-page input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.perfil-page button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.7rem;
+  background: #5b9bd5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mensaje-ok {
+  color: green;
+  margin-top: 1rem;
+}
+
+.mensaje-error {
+  color: red;
+  margin-top: 1rem;
+}
