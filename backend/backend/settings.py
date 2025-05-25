@@ -43,13 +43,18 @@ INSTALLED_APPS = [
     'users',
     'cuentos',
     'juegos',
-    'avatar',  # Añade esta línea si tienes la app avatar
+    'avatar',
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+    ]
 }
 
 MIDDLEWARE = [
@@ -160,8 +165,8 @@ AUTH_USER_MODEL = 'users.User'
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Tiempo de vida del token de acceso
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Tiempo de vida del token de refresco
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),  # Tiempo de vida del token de acceso
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Tiempo de vida del token de refresco
     'ROTATE_REFRESH_TOKENS': False,                   # No rota los tokens de refresco
     'BLACKLIST_AFTER_ROTATION': False,
     'ALGORITHM': 'HS256',                             # Algoritmo de encriptación

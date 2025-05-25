@@ -3,22 +3,15 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
 const PrivateRoute = ({ role }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  // Si no estás logueado, vas a /login
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  if (loading) return null; // ⏳ espera sin hacer nada (o muestra un spinner)
 
-  // Si necesitas un rol concreto y no coincide, redirige a Home
-  if (role === 'padre' && !user.es_padre) {
-    return <Navigate to="/" replace />;
-  }
-  if (role === 'nino' && !user.es_infantil) {
-    return <Navigate to="/" replace />;
-  }
+  if (!user) return <Navigate to="/login" replace />;
 
-  // Si todo OK, renderiza la ruta hija
+  if (role === 'padre' && !user.es_padre) return <Navigate to="/" replace />;
+  if (role === 'nino' && !user.es_infantil) return <Navigate to="/" replace />;
+
   return <Outlet />;
 };
 
