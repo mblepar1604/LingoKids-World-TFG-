@@ -4,4 +4,12 @@ from .models import Cuento
 class CuentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuento
-        fields = '__all__'
+        fields = [
+            'id',
+            'titulo',
+            'categoria',
+            'idioma',
+            'imagen',  # usamos el campo directamente
+            'contenido',
+            'personalizable',
+        ]
