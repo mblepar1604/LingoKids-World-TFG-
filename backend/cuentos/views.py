@@ -1,15 +1,17 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework.response import Response
+from rest_framework import viewsets, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Cuento
 from .serializers import CuentoSerializer
 
-# Create your views here.
 class CuentoViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Cuento.objects.all()
     serializer_class = CuentoSerializer
 
-    def get_queryset(self):
-        idioma = self.request.query_params.get('idioma')
-        if idioma:
-            return Cuento.objects.filter(idioma__iexact=idioma)
-        return Cuento.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['idioma', 'categoria', 'personalizable']  # 🎯 filtros exactos
+    search_fields = ['titulo']  # 🔍 búsqueda parcial por título
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context

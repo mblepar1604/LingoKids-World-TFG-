@@ -1,0 +1,221 @@
+.cuentos-container {
+    padding: 2rem;
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(to bottom, #fffde7, #e0f7fa);
+  }
+  
+  .cuentos-title {
+    text-align: center;
+    font-size: 36px;
+    color: #444;
+    margin-bottom: 2rem;
+  }
+
+  .menu-section{
+    padding-top: 3rem;
+  }
+
+  .filtros-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .filtros {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    background: #ffffffaa;
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .filtros select,
+  .filtros button {
+    font-family: 'Baloo 2', cursive;
+    padding: 0.4rem 0.8rem;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fefefe;
+    transition: all 0.2s ease;
+  }
+  
+  .filtros button:hover {
+    background-color: #dcedc8;
+    cursor: pointer;
+  }
+  
+  
+  .cuentos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 2rem;
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  .cuento-card {
+    position: relative;
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .cuento-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.6));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  }
+  
+  .cuento-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .cuento-categoria {
+    font-size: 16px;
+    margin-top: 0.3rem;
+    opacity: 0.85;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal-content {
+    background: linear-gradient(145deg, #fce4ec, #e1f5fe);
+    width: 90%;
+    max-width: 720px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2.5rem 2rem;
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    font-family: 'Baloo 2', cursive;
+    animation: slideUp 0.4s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .modal-titulo {
+    font-size: 32px;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #444;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+  }
+  
+  .modal-contenido {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    padding: 0 1rem;
+  }
+  
+  .escena-texto {
+    font-size: 20px;
+    font-weight: 500;
+    color: #4e342e;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .modal-opciones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+    justify-items: center;
+    padding: 0 1rem;
+  }
+  
+  .modal-opcion-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #aed581;
+    color: #263238;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    font-family: 'Baloo 2', cursive;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
+  }
+  
+  .modal-opcion-btn:hover {
+    background-color: #9ccc65;
+    transform: translateY(-2px);
+  }
+  
+  .fin-cuento {
+    font-size: 20px;
+    color: #6d4c41;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 26px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .cerrar-modal:hover {
+    color: #b71c1c;
+  }
+  
