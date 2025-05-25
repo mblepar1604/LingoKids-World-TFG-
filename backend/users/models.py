@@ -1,11 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class User(AbstractUser):
     es_padre = models.BooleanField(default=False)
     es_infantil = models.BooleanField(default=False)
-    # Nuevo campo para vincular hijos
     parent = models.ForeignKey(
         'self',
         null=True,
@@ -56,3 +57,22 @@ class ConfiguracionParental(models.Model):
 
     def __str__(self):
         return f"Configuración de {self.usuario.username}"
+
+from avatar.models import Avatar, ComponenteAvatar
+
+@receiver(post_save, sender=PerfilInfantil)
+def crear_avatar_por_defecto(sender, instance, created, **kwargs):
+    if created and not hasattr(instance, 'avatar_personalizado'):
+        pelo = ComponenteAvatar.objects.filter(tipo='pelo', desbloqueado=True).first()
+        ojos = ComponenteAvatar.objects.filter(tipo='ojos', desbloqueado=True).first()
+        ropa = ComponenteAvatar.objects.filter(tipo='ropa', desbloqueado=True).first()
+        accesorio = ComponenteAvatar.objects.filter(tipo='accesorio', desbloqueado=True).first()
+
+        if pelo and ojos and ropa:
+            Avatar.objects.create(
+                perfil=instance,
+                pelo=pelo,
+                ojos=ojos,
+                ropa=ropa,
+                accesorio=accesorio  # puede ser None
+            )

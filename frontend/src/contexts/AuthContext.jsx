@@ -1,3 +1,5 @@
+// Paso 1: Añadir avatar al contexto global
+// En AuthContext.js o donde se maneja el contexto
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -5,60 +7,63 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // 👈 clave
+  const [avatarUrl, setAvatarUrl] = useState('/img/avatar.png');
+  const [loading, setLoading] = useState(true);
 
   const login = (userData, tokens) => {
-    localStorage.setItem('user', JSON.stringify(userData));
-    localStorage.setItem('token', tokens.access_token);
-    localStorage.setItem('refresh', tokens.refresh_token);
+    localStorage.setItem('access_token', tokens.access_token);
+    localStorage.setItem('refresh_token', tokens.refresh_token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.access_token}`;
     setUser(userData);
   };
 
   const logout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
     delete axios.defaults.headers.common['Authorization'];
     setUser(null);
-    
-    if (window.location.pathname !== '/login') {
-      window.location.href = '/login';
+    setAvatarUrl('/img/avatar.png');
+    window.location.href = '/login';
+  };
+
+  const loadAvatar = async (perfilId) => {
+    const token = localStorage.getItem('access_token');
+    if (!token || !perfilId) return;
+
+    try {
+      const response = await axios.get(`http://localhost:8000/api/avatar/mi-avatar/${perfilId}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.data.vista_previa) {
+        setAvatarUrl(response.data.vista_previa);
+      }
+    } catch (err) {
+      console.warn('Error al cargar el avatar:', err);
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    
-
-    if (window.location.pathname === '/login') {
+    if (!token) {
       setLoading(false);
       return;
     }
-
-    if (!token) {
-      setLoading(false); // ✔️ finaliza si no hay token
-      return;
-    }
-
     axios.get('/api/users/me/', {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then(res => {
+      .then((res) => {
         setUser(res.data);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        if (res.data.perfil_id || res.data.perfilInfantil?.id) {
+          loadAvatar(res.data.perfil_id || res.data.perfilInfantil.id);
+        }
       })
-      .catch(err => {
-        console.warn('Token inválido o expirado. Cerrando sesión.');
-        logout();
-      })
-      .finally(() => {
-        setLoading(false); // ✔️ finaliza tras validar
-      });
+      .catch(() => logout())
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, logout, avatarUrl, loadAvatar, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import '../styles/index.css'; // estilos generales
-import './styles/Navbar.css'; // puedes mantener los estilos separados si quieres
-
+import '../styles/index.css';
+import './styles/Navbar.css';
 
 const Home = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, avatarUrl } = useContext(AuthContext);
 
   const linksNino = [
     ['/', 'Home'],
@@ -48,7 +47,7 @@ const Home = () => {
         <div className="circles">
           <a href="/progreso" className="circle small link-circle">📈</a>
           <div className="circle large avatar-container">
-            <img src="/img/avatar.png" alt="Avatar" className="avatar-img" />
+            <img src={avatarUrl || '/img/avatar.png'} alt="Avatar" className="avatar-img" />
           </div>
           <a href="/amigos" className="circle small link-circle">👥</a>
         </div>
@@ -84,7 +83,6 @@ const Home = () => {
             <div className="label">Progreso y Logros</div>
           </div>
         </div>
-
       </div>
 
       <footer className="site-footer">
