@@ -98,6 +98,17 @@ class ChildrenAPIView(APIView):
             return Response(ChildSerializer(child).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    def delete(self, request, pk=None):
+        if not request.user.es_padre:
+            return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)
+        
+        try:
+            child = request.user.children.get(pk=pk)
+            child.delete()
+            return Response({'detail': 'Eliminado correctamente'}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({'detail': 'Hijo no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
 class CambiarContrasenaView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -1,0 +1,67 @@
+.add-child-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.add-child-form label {
+  display: block;
+  margin-top: 1rem;
+}
+
+.add-child-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-child-form button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.7rem;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.children-list {
+  margin-top: 2rem;
+}
+
+.children-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.children-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  background: #f1f1f1;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.children-list button {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.mensaje-ok {
+  color: green;
+}
+
+.mensaje-error {
+  color: red;
+}
