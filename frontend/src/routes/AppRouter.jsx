@@ -11,6 +11,7 @@ import Cuentos from '../components/Cuentos';
 import Avatar from '../components/Avatar';
 import Progreso from '../components/Progreso';
 import ConfiguracionParental from '../components/ConfiguracionParental';
+import Perfil from '../components/Perfil';
 import NotFound from '../components/NotFound';
 
 import PrivateRoute from './PrivateRoute';
@@ -44,7 +45,7 @@ const AppRouter = () => {
         <Route element={<PrivateRoute role="padre" />}>
           <Route path="/children" element={<AddChildPage />} />
           <Route path="/configuracion" element={<ConfiguracionParental />} />
-          <Route path="/perfil" element={<Navigate to="/" replace />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Route>
 
         {/* Fallback 404 */}

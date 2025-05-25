@@ -4,7 +4,8 @@ from .views import (
     CrearPerfilInfantilView,
     ConfiguracionParentalView,
     UsuarioActualView,
-    ChildrenAPIView
+    ChildrenAPIView,
+    CambiarContrasenaView
 )
 
 app_name = 'users'
@@ -15,4 +16,6 @@ urlpatterns = [
     path('configuracion-parental/', ConfiguracionParentalView.as_view(), name='configuracion-parental'),
     path('me/', UsuarioActualView.as_view(), name='usuario-actual'),
     path('children/', ChildrenAPIView.as_view(), name='children-api'),
+    path('cambiar-password/', CambiarContrasenaView.as_view(), name='cambiar-password'),
+    path('children/<int:pk>/', ChildrenAPIView.as_view(), name='children-delete'),
 ]
