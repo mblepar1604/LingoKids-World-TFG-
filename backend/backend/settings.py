@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'users',
+    'users.apps.UsersConfig',
     'cuentos',
     'juegos',
     'avatar',

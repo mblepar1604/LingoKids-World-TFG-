@@ -23,6 +23,7 @@ class ComponenteAvatar(models.Model):
     class Meta:
         ordering = ['tipo', 'nombre']
 
+
 class Avatar(models.Model):
     """Modelo para el avatar personalizado de cada perfil infantil"""
     perfil = models.OneToOneField(PerfilInfantil, on_delete=models.CASCADE, related_name='avatar_personalizado')
@@ -40,13 +41,17 @@ class Avatar(models.Model):
     def actualizar_vista_previa(self):
         """Actualiza la vista previa del avatar"""
         if self.pelo or self.ojos or self.ropa or self.accesorio:
-            self.vista_previa = save_avatar_preview(self)
-            self.save()
+            nueva_imagen = save_avatar_preview(self)
+            self.vista_previa.save(nueva_imagen.name, nueva_imagen, save=False)
+            super(Avatar, self).save(update_fields=['vista_previa'])
 
     def save(self, *args, **kwargs):
-        """Sobrescribe el método save para actualizar la vista previa"""
-        super().save(*args, **kwargs)
-        self.actualizar_vista_previa()
+        """Evita recursión infinita al actualizar vista previa"""
+        actualizar_preview = kwargs.pop('actualizar_preview', True)
+        super(Avatar, self).save(*args, **kwargs)
+        if actualizar_preview:
+            self.actualizar_vista_previa()
+
 
 class Recompensa(models.Model):
     """Modelo para las recompensas que se pueden ganar"""
@@ -60,11 +65,17 @@ class Recompensa(models.Model):
         ('diario', 'Diario'),
         ('especial', 'Especial')
     ])
-    componente_desbloquea = models.ForeignKey(ComponenteAvatar, on_delete=models.SET_NULL, null=True, blank=True, 
-                                             related_name='recompensas_desbloqueo')
+    componente_desbloquea = models.ForeignKey(
+        ComponenteAvatar,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='recompensas_desbloqueo'
+    )
 
     def __str__(self):
         return self.nombre
+
 
 class RecompensaPerfil(models.Model):
     """Modelo para registrar las recompensas ganadas por cada perfil"""
@@ -76,4 +87,4 @@ class RecompensaPerfil(models.Model):
         unique_together = ('perfil', 'recompensa')
 
     def __str__(self):
-        return f"{self.recompensa.nombre} - {self.perfil.nombre}" 
+        return f"{self.recompensa.nombre} - {self.perfil.nombre}"
