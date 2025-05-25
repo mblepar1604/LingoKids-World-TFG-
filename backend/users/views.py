@@ -97,3 +97,18 @@ class ChildrenAPIView(APIView):
             child = serializer.save()
             return Response(ChildSerializer(child).data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CambiarContrasenaView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        actual = request.data.get("actual")
+        nueva = request.data.get("nueva")
+
+        if not user.check_password(actual):
+            return Response({"detail": "La contraseña actual no es correcta"}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(nueva)
+        user.save()
+        return Response({"detail": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
