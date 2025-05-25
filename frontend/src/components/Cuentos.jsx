@@ -103,7 +103,7 @@ const Cuentos = () => {
 
   return (
     <div className="dashboard-bg">
-      <div className="background-wrap" style={{ backgroundImage: "url('/img/fondoTFG.png')" }}>
+      <div className="background-wrap" style={{ backgroundImage: "url('/img/fondo-cuentos.png')" }}>
         <nav className="navbar">
           {navLinks.map(([to, label]) => (
             <NavLink key={to} to={to} className="nav-link">{label}</NavLink>

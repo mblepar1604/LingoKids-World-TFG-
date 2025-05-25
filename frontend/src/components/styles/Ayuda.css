@@ -1,0 +1,70 @@
+/* Estilos para la página de Ayuda */
+
+.ayuda-section {
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.faq-card {
+  width: 1000px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 2rem;
+  font-family: 'Baloo 2', cursive;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  animation: fadeInUp 0.5s ease both;
+  background: #e0f7fa; /* fondo por defecto */
+}
+
+.faq-card.open {
+  background: #fffde7; /* fondo cuando está abierta */
+}
+
+.faq-card h2 {
+  font-size: 22px;
+  color: #3e2723;
+  margin: 0;
+  position: relative;
+  padding-right: 30px;
+}
+
+.faq-card h2::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  font-size: 28px;
+  transition: transform 0.3s ease;
+}
+
+.faq-card.open h2::after {
+  content: '-';
+  transform: rotate(180deg);
+}
+
+.faq-card p {
+  font-size: 18px;
+  color: #444;
+  line-height: 1.6;
+  margin-top: 1rem;
+  display: none;
+}
+
+.faq-card.open p {
+  display: block;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

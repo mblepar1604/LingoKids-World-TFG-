@@ -13,6 +13,7 @@ import Progreso from '../components/Progreso';
 import ConfiguracionParental from '../components/ConfiguracionParental';
 import Perfil from '../components/Perfil';
 import NotFound from '../components/NotFound';
+import Ayuda from '../components/Ayuda';
 
 import PrivateRoute from './PrivateRoute';
 
@@ -39,6 +40,7 @@ const AppRouter = () => {
           <Route path="/juegos" element={<Juegos />} />
           <Route path="/avatar" element={<Avatar />} />
           <Route path="/progreso" element={<Progreso />} />
+          <Route path="/ayuda" element={<Ayuda />} />
         </Route>
 
         {/* Rutas solo para padres */}
