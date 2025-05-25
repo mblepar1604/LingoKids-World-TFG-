@@ -40,7 +40,7 @@ const Cuentos = () => {
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       try {
-        const res = await axios.get('http://localhost:8000/api/cuentos/');
+        const res = await axios.get('/api/cuentos/');
         setCuentos(res.data);
         const categorias = res.data.map(c => c.categoria).filter(Boolean);
           const unicas = [...new Set(categorias)];
