@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../contexts/AuthContext';
@@ -16,24 +16,33 @@ const Login = () => {
     setError('');
 
     try {
-      const { data: tokens } = await axios.post('/api/token/', { username, password });
+      // Llamada al nuevo endpoint que ya genera el token directamente
+      const { data } = await axios.post('/api/login/', { username, password });
+      const accessToken = data.access_token;
 
-      localStorage.setItem('access_token', tokens.access);
-      localStorage.setItem('refresh_token', tokens.refresh);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.access}`;
-
+      // Obtener datos del usuario
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
       const { data: userData } = await axios.get('/api/users/me/');
 
+      const isPadre = userData.es_padre;
+      const isInfantil = userData.es_infantil;
+
+      // Guardado condicional
+      if (isInfantil) {
+        // Niño → guardar en localStorage (token con duración definida)
+        localStorage.setItem('access_token', accessToken);
+      } else {
+        // Padre o admin → guardar solo en sessionStorage
+        sessionStorage.setItem('access_token', accessToken);
+      }
+
+      // Aplicar token por defecto
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+
+      // Actualizar contexto
       login(
-        { 
-          ...userData,
-          es_padre: userData.es_padre,
-          es_infantil: userData.es_infantil
-        },
-        {
-          access_token: tokens.access,
-          refresh_token: tokens.refresh
-        }
+        { ...userData, es_padre: isPadre, es_infantil: isInfantil },
+        { access_token: accessToken }
       );
 
       navigate('/');
