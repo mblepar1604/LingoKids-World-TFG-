@@ -2,44 +2,18 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import '../styles/index.css';
-import './styles/Navbar.css';
 
 const Home = () => {
   const { user, logout, avatarUrl } = useContext(AuthContext);
 
-  const linksNino = [
-    ['/', 'Home'],
-    ['/cuentos', 'Cuentos'],
-    ['/juegos', 'Juegos'],
-    ['/progreso', 'Progreso'],
-    ['/avatar', 'Avatar']
-  ];
-
-  const linksPadre = [
-    ['/', 'Home'],
-    ['/children', 'Añadir hijo'],
-    ['/configuracion', 'Configuración'],
-    ['/perfil', 'Perfil']
-  ];
-
-  const navLinks = user?.es_padre ? linksPadre : linksNino;
-
-  return (
+  // HTML extraído a función aparte
+  const renderHome = () => (
     <div className="dashboard-bg">
       {/* Fondo que incluye todo: navbar, título y avatar */}
       <div
         className="background-wrap"
         style={{ backgroundImage: "url('/img/fondoTFG.png')" }}
       >
-        {/* NAVBAR embebido directamente aquí */}
-        <nav className="navbar">
-          {navLinks.map(([to, label]) => (
-            <NavLink key={to} to={to} className="nav-link">
-              {label}
-            </NavLink>
-          ))}
-          <button className="logout-btn" onClick={logout}>Salir</button>
-        </nav>
 
         {/* CONTENIDO CENTRAL */}
         <h1 className="dashboard-title">LingoKids World</h1>
@@ -97,6 +71,8 @@ const Home = () => {
       </footer>
     </div>
   );
+
+  return renderHome();
 };
 
 export default Home;

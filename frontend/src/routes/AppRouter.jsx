@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
-import Home from '../components/Home';
 import Login from '../components/Login';
 import Registro from '../components/Registro';
 import AddChildPage from '../components/AddChildPage';
@@ -16,26 +15,36 @@ import NotFound from '../components/NotFound';
 import Ayuda from '../components/Ayuda';
 
 import PrivateRoute from './PrivateRoute';
+import HeaderNavigation from '../components/HeaderNavigation';
+import HomePadre from '../components/HomePadre';
+import Home from '../components/Home';
 
 const AppRouter = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 
-  // Oculta Navbar en estas rutas
+  // Rutas sin navegación
   const noNavbarRoutes = ['/login', '/registro'];
-  const hideNavbar = noNavbarRoutes.includes(location.pathname);
+  const hideHeader = noNavbarRoutes.includes(location.pathname);
+
+  // Decide qué home mostrar en /
+  const getHomeComponent = () => {
+    if (!user) return <Navigate to="/login" />;
+    return user.es_padre ? <HomePadre /> : <Home />;
+  };
 
   return (
     <>
+      {!hideHeader && <HeaderNavigation />}
 
       <Routes>
-        {/* Rutas públicas */}
+        {/* Públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
 
-        {/* Rutas privadas comunes */}
+        {/* Privadas comunes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={getHomeComponent()} />
           <Route path="/cuentos" element={<Cuentos />} />
           <Route path="/juegos" element={<Juegos />} />
           <Route path="/avatar" element={<Avatar />} />
@@ -43,14 +52,14 @@ const AppRouter = () => {
           <Route path="/ayuda" element={<Ayuda />} />
         </Route>
 
-        {/* Rutas solo para padres */}
+        {/* Solo padres */}
         <Route element={<PrivateRoute role="padre" />}>
           <Route path="/children" element={<AddChildPage />} />
           <Route path="/configuracion" element={<ConfiguracionParental />} />
           <Route path="/perfil" element={<Perfil />} />
         </Route>
 
-        {/* Fallback 404 */}
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
