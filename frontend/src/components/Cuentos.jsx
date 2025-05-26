@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import '../styles/index.css';
 import './styles/cuentos.css';
-import './styles/Navbar.css';
 
 const Cuentos = () => {
   const [cuentos, setCuentos] = useState([]);
@@ -15,23 +14,6 @@ const Cuentos = () => {
   const [escenaActual, setEscenaActual] = useState(null);
 
   const { user, logout } = useContext(AuthContext);
-
-  const linksNino = [
-    ['/', 'Home'],
-    ['/cuentos', 'Cuentos'],
-    ['/juegos', 'Juegos'],
-    ['/progreso', 'Progreso'],
-    ['/avatar', 'Avatar']
-  ];
-
-  const linksPadre = [
-    ['/', 'Home'],
-    ['/children', 'Añadir hijo'],
-    ['/configuracion', 'Configuración'],
-    ['/perfil', 'Perfil']
-  ];
-
-  const navLinks = user?.es_padre ? linksPadre : linksNino;
 
   useEffect(() => {
     const fetchCuentos = async () => {
@@ -105,15 +87,10 @@ const Cuentos = () => {
     setEscenaActual(siguiente || null);
   };
 
-  return (
+  // HTML extraído a función aparte
+  const renderCuentos = () => (
     <div className="dashboard-bg">
       <div className="background-wrap" style={{ backgroundImage: "url('/img/fondo-cuentos.png')" }}>
-        <nav className="navbar">
-          {navLinks.map(([to, label]) => (
-            <NavLink key={to} to={to} className="nav-link">{label}</NavLink>
-          ))}
-          <button className="logout-btn" onClick={logout}>Salir</button>
-        </nav>
         <h1 className="dashboard-title">Explora Nuestros Cuentos</h1>
       </div>
 
@@ -126,12 +103,12 @@ const Cuentos = () => {
               <option value="en">Inglés</option>
             </select>
 
-           <select onChange={(e) => setFiltros(prev => ({ ...prev,categoria: e.target.value }))}>
-            <option value="">Todas las categorías</option>
-            {categoriasUnicas.map((cat, i) => (
-              <option key={i} value={cat}>{cat}</option>
-            ))}
-          </select>
+            <select onChange={(e) => setFiltros(prev => ({ ...prev, categoria: e.target.value }))}>
+              <option value="">Todas las categorías</option>
+              {categoriasUnicas.map((cat, i) => (
+                <option key={i} value={cat}>{cat}</option>
+              ))}
+            </select>
 
             <select onChange={(e) => setFiltros(prev => ({ ...prev, personalizable: e.target.value }))}>
               <option value="">Todos</option>
@@ -183,7 +160,6 @@ const Cuentos = () => {
                   <p className="fin-cuento">🎉 Fin del cuento</p>
                 )}
               </div>
-
             </div>
           </div>
         </div>
@@ -201,6 +177,8 @@ const Cuentos = () => {
       </footer>
     </div>
   );
+
+  return renderCuentos();
 };
 
 export default Cuentos;

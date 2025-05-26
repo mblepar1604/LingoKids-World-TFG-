@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import './styles/Ayuda.css';
-import './styles/Navbar.css';
 import '../styles/index.css';
 
 const preguntas = [
@@ -36,42 +35,17 @@ const Ayuda = () => {
     setAbierta(abierta === index ? null : index);
   };
 
-  const linksNino = [
-    ['/', 'Home'],
-    ['/cuentos', 'Cuentos'],
-    ['/juegos', 'Juegos'],
-    ['/progreso', 'Progreso'],
-    ['/avatar', 'Avatar']
-  ];
-
-  const linksPadre = [
-    ['/', 'Home'],
-    ['/children', 'Añadir hijo'],
-    ['/configuracion', 'Configuración'],
-    ['/perfil', 'Perfil']
-  ];
-
-  const navLinks = user?.es_padre ? linksPadre : linksNino;
-
-  return (
+  // HTML extraído a función aparte
+  const renderAyuda = () => (
     <div className="dashboard-bg">
       {/* Fondo del header con imagen personalizada */}
-        <div
+      <div
         className="background-wrap"
         style={{ backgroundImage: "url('/img/fondo-ayuda.png')" }}
-        >
-        {/* NAVBAR dentro del fondo */}
-        <nav className="navbar">
-            {navLinks.map(([to, label]) => (
-            <NavLink key={to} to={to} className="nav-link">{label}</NavLink>
-            ))}
-            <button className="logout-btn" onClick={logout}>Salir</button>
-        </nav>
-
+      >
         <h1 className="dashboard-title">Centro de Ayuda</h1>
-        </div>
+      </div>
       <div className="ayuda-section">
-
         {preguntas.map((item, index) => (
           <div
             key={index}
@@ -83,7 +57,6 @@ const Ayuda = () => {
           </div>
         ))}
       </div>
-
       {/* FOOTER */}
       <footer className="site-footer">
         <div className="footer-content">
@@ -97,6 +70,8 @@ const Ayuda = () => {
       </footer>
     </div>
   );
+
+  return renderAyuda();
 };
 
 export default Ayuda;
