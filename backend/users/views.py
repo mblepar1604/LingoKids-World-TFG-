@@ -37,7 +37,8 @@ class CrearPerfilInfantilView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
-    permission_classes = []
+    authentication_classes = []
+    permission_classes = [AllowAny]
 
     def post(self, request):
         from django.contrib.auth import authenticate
@@ -47,18 +48,19 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
 
         if user and user.is_active:
-            # Tiempo por defecto para admin/padre
             tiempo_token = timedelta(minutes=60)
 
-            if user.is_infantil:
+            if user.es_infantil:
                 try:
-                    config = ConfiguracionParental.objects.get(usuario=user.padre)
-                    minutos = config.limite_tiempo or 30  # fallback si es None
-                    tiempo_token = timedelta(minutes=minutos)
+                    if user.parent:
+                        config = ConfiguracionParental.objects.get(usuario=user.parent)
+                        minutos = config.limite_tiempo or 30
+                        tiempo_token = timedelta(minutes=minutos)
+                    else:
+                        tiempo_token = timedelta(minutes=30)
                 except ConfiguracionParental.DoesNotExist:
                     tiempo_token = timedelta(minutes=30)
 
-            # Generar el token manualmente
             access = AccessToken.for_user(user)
             access.set_exp(from_time=None, lifetime=tiempo_token)
 

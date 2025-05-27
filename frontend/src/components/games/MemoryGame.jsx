@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './styles/games/MemoryGame.css';
-import { getMemoryCards } from '../utils/cardsData';
+import '../styles/games/MemoryGame.css';
+import { getMemoryCards } from '../../utils/cardsData';
 
 const MemoryGameHTML = ({ cards, flipped, matched, handleFlip }) => {
   return (

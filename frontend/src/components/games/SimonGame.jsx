@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './styles/games/SimonGame.css';
+import '../styles/games/SimonGame.css';
 
 const sonidos = [
     { id: 0, color: '#f44336', audio: '/sounds/rojo.mp3' },

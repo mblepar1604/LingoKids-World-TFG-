@@ -5,13 +5,15 @@ from .views import (
     ConfiguracionParentalView,
     UsuarioActualView,
     ChildrenAPIView,
-    CambiarContrasenaView
+    CambiarContrasenaView,
+    LoginView,
 )
 
 app_name = 'users'
 
 urlpatterns = [
     path('registro/', RegistroUsuarioView.as_view(), name='registro'),
+    path('login/', LoginView.as_view(), name='login'),
     path('crear-perfil-infantil/', CrearPerfilInfantilView.as_view(), name='crear-perfil-infantil'),
     path('configuracion-parental/', ConfiguracionParentalView.as_view(), name='configuracion-parental'),
     path('me/', UsuarioActualView.as_view(), name='usuario-actual'),
