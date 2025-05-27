@@ -6,6 +6,10 @@ import Login from '../components/Login';
 import Registro from '../components/Registro';
 import AddChildPage from '../components/AddChildPage';
 import Juegos from '../components/Juegos';
+import MemoryGame from '../components/games/MemoryGame';
+import SimonGame from '../components/games/SimonGame';
+import MatchingGame from '../components/games/MatchingGame';
+import Puzzle from '../components/games/Puzzle';
 import Cuentos from '../components/Cuentos';
 import Avatar from '../components/Avatar';
 import Progreso from '../components/Progreso';
@@ -47,6 +51,10 @@ const AppRouter = () => {
           <Route path="/" element={getHomeComponent()} />
           <Route path="/cuentos" element={<Cuentos />} />
           <Route path="/juegos" element={<Juegos />} />
+          <Route path="/juegos/memory" element={<MemoryGame />} />
+          <Route path="/juegos/secuencia" element={<SimonGame />} />
+          <Route path="/juegos/matching" element={<MatchingGame />} />
+          <Route path="/juegos/puzzles" element={<Puzzle />} /> 
           <Route path="/avatar" element={<Avatar />} />
           <Route path="/progreso" element={<Progreso />} />
           <Route path="/ayuda" element={<Ayuda />} />
