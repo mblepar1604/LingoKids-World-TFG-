@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       // Llamada al nuevo endpoint que ya genera el token directamente
-      const { data } = await axios.post('/api/login/', { username, password });
+      const { data } = await axios.post('/api/users/login/', { username, password });
       const accessToken = data.access_token;
 
       // Obtener datos del usuario

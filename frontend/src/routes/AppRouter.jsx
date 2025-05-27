@@ -9,7 +9,7 @@ import Juegos from '../components/Juegos';
 import MemoryGame from '../components/games/MemoryGame';
 import SimonGame from '../components/games/SimonGame';
 import MatchingGame from '../components/games/MatchingGame';
-import Puzzle from '../components/games/Puzzle';
+import Puzzle from '../components/games/PuzzleGame';
 import Cuentos from '../components/Cuentos';
 import Avatar from '../components/Avatar';
 import Progreso from '../components/Progreso';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './styles/games/MatchingGame.css';
-import { getMatchingPairs } from '../utils/cardsData';
+import '../styles/games/MatchingGame.css';
+import { getMatchingPairs } from '../../utils/cardsData';
 
 const MatchingGameHTML = ({ pairs, selectedWord, selectedImage, matchedIds, handleWordClick, handleImageClick }) => {
   return (

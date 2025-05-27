@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './styles/games/PuzzleGame.css';
-import { getPuzzleFrases } from '../utils/cardsData';
+import '../styles/games/PuzzleGame.css';
+import { getPuzzleFrases } from '../../utils/cardsData';
 
 const PuzzleGameHTML = ({ frase, seleccionadas, completado, handleSelect, reiniciar }) => {
   return (
