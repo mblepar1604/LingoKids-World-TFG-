@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'juegos',
     'avatar',
     'django_filters',
+    'progresos',
 ]
 
 REST_FRAMEWORK = {
