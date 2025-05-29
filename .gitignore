@@ -8,3 +8,6 @@ __pycache__/
 
 # Ignorar zips
 *.zip
+
+# Ignorar jar
+*.jar
