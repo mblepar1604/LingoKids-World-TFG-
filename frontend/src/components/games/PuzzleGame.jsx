@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/games/PuzzleGame.css';
 import { getPuzzleFrases } from '../../utils/cardsData';
+import PlayAgain from '../PlayAgain';
+import LanguageSelect from '../LanguageSelect';
 
-const PuzzleGameHTML = ({ frase, seleccionadas, completado, handleSelect, reiniciar }) => {
+const PuzzleGameHTML = ({ frase, seleccionadas, handleSelect }) => {
   return (
     <div className="puzzle-container">
       <h1 className="puzzle-title">Concentration Puzzle</h1>
@@ -25,13 +27,6 @@ const PuzzleGameHTML = ({ frase, seleccionadas, completado, handleSelect, reinic
           <span key={i} className="pieza-colocada">{p}</span>
         ))}
       </div>
-
-      {completado && (
-        <div className="puzzle-win">
-          ¡Muy bien! Frase correcta.
-          <button className="puzzle-reset" onClick={reiniciar}>Otro puzzle</button>
-        </div>
-      )}
     </div>
   );
 };
@@ -41,14 +36,19 @@ const PuzzleGame = () => {
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [solucion, setSolucion] = useState([]);
   const [completado, setCompletado] = useState(false);
+  const [idioma, setIdioma] = useState('en');
 
-  useEffect(() => {
-    const puzzle = getPuzzleFrases();
+  const reiniciar = () => {
+    const puzzle = getPuzzleFrases(); // podría adaptarse por idioma en el futuro
     setFrase(puzzle.shuffle);
     setSolucion(puzzle.original);
     setSeleccionadas([]);
     setCompletado(false);
-  }, []);
+  };
+
+  useEffect(() => {
+    reiniciar();
+  }, [idioma]);
 
   const handleSelect = (palabra) => {
     if (seleccionadas.includes(palabra)) return;
@@ -62,22 +62,17 @@ const PuzzleGame = () => {
     }
   };
 
-  const reiniciar = () => {
-    const puzzle = getPuzzleFrases();
-    setFrase(puzzle.shuffle);
-    setSolucion(puzzle.original);
-    setSeleccionadas([]);
-    setCompletado(false);
-  };
-
   return (
-    <PuzzleGameHTML
-      frase={frase}
-      seleccionadas={seleccionadas}
-      completado={completado}
-      handleSelect={handleSelect}
-      reiniciar={reiniciar}
-    />
+    <>
+      <LanguageSelect idioma={idioma} traduccion={idioma} onIdiomaChange={setIdioma} onTraduccionChange={() => {}} />
+      <PuzzleGameHTML
+        frase={frase}
+        seleccionadas={seleccionadas}
+        completado={completado}
+        handleSelect={handleSelect}
+      />
+      <PlayAgain onClick={reiniciar} />
+    </>
   );
 };
 
