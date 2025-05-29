@@ -1,5 +1,5 @@
 import React from "react";
-import '../../styles/games/PlayAgain.css';
+import '../styles/games/PlayAgain.css';
 
 const PlayAgain = ({ onClick }) => {
     return (

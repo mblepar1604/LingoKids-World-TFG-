@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/LanguageSelector.css';
+import '../styles/LanguageSelector.css';
 
 const LanguageSelector = ({ idioma, setIdioma }) => {
   return (

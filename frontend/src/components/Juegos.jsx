@@ -30,6 +30,20 @@ const categorias = [
     descripcion: 'Refuerza gramática y atención',
     icono: '🧩',
     ruta: '/juegos/puzzles'
+  },
+  {
+    id: 'snake',
+    titulo: 'Snake Game',
+    descripcion: 'Controla la serpiente y come manzanas',
+    icono: '🐍',
+    ruta: '/juegos/snake'
+  },
+  {
+    id: 'whackamole',
+    titulo: 'Whack-a-Mole',
+    descripcion: 'Golpea a los topos antes de que desaparezcan',
+    icono: '🔨',
+    ruta: '/juegos/whackamole'
   }
 ];
 
