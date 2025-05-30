@@ -10,6 +10,8 @@ import MemoryGame from '../components/games/MemoryGame';
 import SimonGame from '../components/games/SimonGame';
 import MatchingGame from '../components/games/MatchingGame';
 import Puzzle from '../components/games/PuzzleGame';
+import SnakeGame from '../components/games/SnakeGame';
+import WhackAMole from '../components/games/WhackAMole';
 import Cuentos from '../components/Cuentos';
 import Avatar from '../components/Avatar';
 import Progreso from '../components/Progreso';
@@ -54,7 +56,9 @@ const AppRouter = () => {
           <Route path="/juegos/memory" element={<MemoryGame />} />
           <Route path="/juegos/secuencia" element={<SimonGame />} />
           <Route path="/juegos/matching" element={<MatchingGame />} />
-          <Route path="/juegos/puzzles" element={<Puzzle />} /> 
+          <Route path="/juegos/puzzles" element={<Puzzle />} />
+          <Route path="/juegos/snake" element={<SnakeGame />} />
+          <Route path="/juegos/whackamole" element={<WhackAMole />} />
           <Route path="/avatar" element={<Avatar />} />
           <Route path="/progreso" element={<Progreso />} />
           <Route path="/ayuda" element={<Ayuda />} />
