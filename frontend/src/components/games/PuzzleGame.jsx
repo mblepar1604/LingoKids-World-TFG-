@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/games/PuzzleGame.css';
 import { getPuzzleFrases } from '../../utils/cardsData';
+import PlayAgain from './PlayAgain';
+import LanguageSelect from './LanguageSelect';
 
-const PuzzleGameHTML = ({ frase, seleccionadas, completado, handleSelect, reiniciar }) => {
+const PuzzleGameHTML = ({ frase, seleccionadas, handleSelect, completado, reiniciar }) => {
   return (
     <div className="puzzle-container">
+      <LanguageSelect
+        idioma=""
+        traduccion=""
+        onIdiomaChange={() => {}}
+        onTraduccionChange={() => {}}
+      />
       <h1 className="puzzle-title">Concentration Puzzle</h1>
       <p className="puzzle-sub">Ordena la frase correctamente</p>
 
@@ -26,12 +34,11 @@ const PuzzleGameHTML = ({ frase, seleccionadas, completado, handleSelect, reinic
         ))}
       </div>
 
-      {completado && (
-        <div className="puzzle-win">
-          ¡Muy bien! Frase correcta.
-          <button className="puzzle-reset" onClick={reiniciar}>Otro puzzle</button>
-        </div>
-      )}
+      {completado && <div className="puzzle-win">¡Correcto!</div>}
+
+      <div className="puzzle-footer">
+        <PlayAgain onClick={reiniciar} />
+      </div>
     </div>
   );
 };
@@ -41,26 +48,7 @@ const PuzzleGame = () => {
   const [seleccionadas, setSeleccionadas] = useState([]);
   const [solucion, setSolucion] = useState([]);
   const [completado, setCompletado] = useState(false);
-
-  useEffect(() => {
-    const puzzle = getPuzzleFrases();
-    setFrase(puzzle.shuffle);
-    setSolucion(puzzle.original);
-    setSeleccionadas([]);
-    setCompletado(false);
-  }, []);
-
-  const handleSelect = (palabra) => {
-    if (seleccionadas.includes(palabra)) return;
-
-    const nuevaSeleccion = [...seleccionadas, palabra];
-    setSeleccionadas(nuevaSeleccion);
-
-    if (nuevaSeleccion.length === solucion.length) {
-      const correcta = nuevaSeleccion.every((pal, i) => pal === solucion[i]);
-      setCompletado(correcta);
-    }
-  };
+  const [idioma, setIdioma] = useState('en');
 
   const reiniciar = () => {
     const puzzle = getPuzzleFrases();
@@ -68,6 +56,19 @@ const PuzzleGame = () => {
     setSolucion(puzzle.original);
     setSeleccionadas([]);
     setCompletado(false);
+  };
+
+  useEffect(() => {
+    reiniciar();
+  }, [idioma]);
+
+  const handleSelect = palabra => {
+    if (seleccionadas.includes(palabra)) return;
+    const nueva = [...seleccionadas, palabra];
+    setSeleccionadas(nueva);
+    if (nueva.length === solucion.length) {
+      setCompletado(nueva.every((pal, i) => pal === solucion[i]));
+    }
   };
 
   return (

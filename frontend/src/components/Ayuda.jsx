@@ -35,17 +35,18 @@ const Ayuda = () => {
     setAbierta(abierta === index ? null : index);
   };
 
-  // HTML extraído a función aparte
-  const renderAyuda = () => (
+  return (
     <div className="dashboard-bg">
       {/* Fondo del header con imagen personalizada */}
-      <div
+        <div
         className="background-wrap"
         style={{ backgroundImage: "url('/img/fondo-ayuda.png')" }}
-      >
+        >
+          
         <h1 className="dashboard-title">Centro de Ayuda</h1>
-      </div>
+        </div>
       <div className="ayuda-section">
+
         {preguntas.map((item, index) => (
           <div
             key={index}
@@ -57,6 +58,7 @@ const Ayuda = () => {
           </div>
         ))}
       </div>
+
       {/* FOOTER */}
       <footer className="site-footer">
         <div className="footer-content">
@@ -70,8 +72,6 @@ const Ayuda = () => {
       </footer>
     </div>
   );
-
-  return renderAyuda();
 };
 
 export default Ayuda;

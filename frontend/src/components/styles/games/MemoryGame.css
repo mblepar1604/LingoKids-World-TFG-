@@ -8,6 +8,12 @@
   align-items: center;
 }
 
+/* Solo cuando transitions-enabled esté presente */
+.memory-container.transitions-enabled .memory-front,
+.memory-container.transitions-enabled .memory-back {
+  transition: transform 0.6s ease;
+}
+
 .memory-title {
   font-size: 36px;
   color: #3e2723;
@@ -15,36 +21,37 @@
   text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
 }
 
+/* 5 columnas fijas, centradas */
 .memory-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-template-columns: repeat(10, auto);
   gap: 1.5rem;
-  width: 100%;
-  max-width: 960px;
+  justify-content: center;
   padding: 1rem;
-  justify-items: center;
 }
 
 .memory-card {
+  position: relative;
   width: 100px;
   height: 100px;
   perspective: 800px;
   cursor: pointer;
 }
 
+/* Estado volteado */
 .memory-card.flipped .memory-front {
   transform: rotateY(0deg);
 }
-
 .memory-card.flipped .memory-back {
   transform: rotateY(180deg);
 }
 
+/* Caras sin transición por defecto */
 .memory-front,
 .memory-back {
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
   backface-visibility: hidden;
   border-radius: 16px;
   display: flex;
@@ -52,9 +59,9 @@
   align-items: center;
   font-size: 20px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  transition: transform 0.6s ease;
 }
 
+/* Cara frontal: partida girada */
 .memory-front {
   background: #ffecb3;
   transform: rotateY(180deg);
@@ -63,13 +70,13 @@
   padding: 0.5rem;
   text-align: center;
 }
-
 .memory-front img {
   max-width: 80%;
   max-height: 80%;
   object-fit: contain;
 }
 
+/* Cara trasera: partida en 0° */
 .memory-back {
   background: #a5d6a7;
   transform: rotateY(0deg);
@@ -83,4 +90,9 @@
   width: 100%;
   height: 100%;
   border-radius: 16px;
+}
+
+/* Pie con el botón “Volver a jugar” */
+.memory-footer {
+  margin-top: 2rem;
 }

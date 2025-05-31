@@ -1,11 +1,11 @@
 const vocabulario = [
-    { id: 1, es: 'manzana', en: 'apple', img: '/img/games/fruta_manzana.png' },
-    { id: 2, es: 'casa', en: 'house', img: '/img/games/casa.png' },
-    { id: 3, es: 'sol', en: 'sun', img: '/img/games/sol.png' },
-    { id: 4, es: 'libro', en: 'book', img: '/img/games/libro.png' },
-    { id: 5, es: 'gato', en: 'cat', img: '/img/games/gato.png' },
-    { id: 6, es: 'pelota', en: 'ball', img: '/img/games/pelota.png' },
-    { id: 7, es: 'estrella', en: 'star', img: '/img/games/estrella.png' },
+    { id: 1, es: 'manzana', en: 'apple', img: '../../assets/img/games/fruta_manzana.png' },
+    { id: 2, es: 'casa', en: 'house', img: '../../assets/img/games/casa.png' },
+    { id: 3, es: 'sol', en: 'sun', img: '../../assets/img/games/sol.png' },
+    { id: 4, es: 'libro', en: 'book', img: '../../assets/img/games/libro.png' },
+    { id: 5, es: 'gato', en: 'cat', img: '../../assets/img/games/gato.png' },
+    { id: 6, es: 'pelota', en: 'ball', img: '../../assets/img/games/pelota.png' },
+    { id: 7, es: 'estrella', en: 'star', img: '../../assets/img/games/estrella.png' },
 ];
 
 export const getMemoryCards = (idioma) => {

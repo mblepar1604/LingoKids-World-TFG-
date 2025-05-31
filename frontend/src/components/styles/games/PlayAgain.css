@@ -1,0 +1,19 @@
+.play-again-btn {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Baloo 2', cursive;
+}
+
+.play-again-btn:hover {
+  background-color: #fb8c00;
+  transform: scale(1.05);
+}
