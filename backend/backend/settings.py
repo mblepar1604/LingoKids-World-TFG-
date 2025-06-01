@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(bx0slnzxa(i7%=9vfs&%b%ndx&(49+as!_u^&ms*kn-+9&au*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # Añade esto para permitir peticiones locales
 
 
 # Application definition
@@ -76,6 +76,29 @@ CORS_ALLOWED_ORIGINS = [
   "http://localhost:3000",
 ]
 
+CORS_ALLOW_CREDENTIALS = True  # Añade esta línea
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -106,8 +129,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_lingokidsworld',
         'USER': 'root',
-        'PASSWORD': 'admin',  # contraseña root
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'admin',
+        'HOST': 'db',  # Cambia de '127.0.0.1' a 'db' para Docker Compose
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -152,6 +175,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -177,3 +201,9 @@ SIMPLE_JWT = {
 }
 
 APPEND_SLASH = False
+
+# Solo para desarrollo: desactiva CSRF en la API
+REST_FRAMEWORK['DEFAULT_AUTHENTICATION_CLASSES'] += [
+    'rest_framework.authentication.SessionAuthentication',
+]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
