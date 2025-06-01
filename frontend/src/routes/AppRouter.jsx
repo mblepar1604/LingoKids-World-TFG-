@@ -23,6 +23,8 @@ import PrivateRoute from './PrivateRoute';
 import HeaderNavigation from '../components/HeaderNavigation';
 import HomePadre from '../components/HomePadre';
 import Home from '../components/Home';
+import Contacto from '../components/Contacto';
+import Privacidad from '../components/Privacidad';
 
 /**
  * Wrapper para extraer el parámetro :perfilId de la URL
@@ -119,6 +121,8 @@ const AppRouter = () => {
           <Route path="/avatar" element={<Avatar />} />
           <Route path="/progreso/:perfilId" element={<ProgresoWrapper />} />
           <Route path="/ayuda" element={<Ayuda />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/privacidad" element={<Privacidad />} />
         </Route>
 
         {/* Solo padres */}
