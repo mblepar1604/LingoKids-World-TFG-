@@ -72,6 +72,50 @@
 }
 
 .menu-section {
-  padding-top: 3rem;
   position: relative;
+  padding: 3rem 10px 1rem 10px;
+}
+
+.site-footer {
+  width: 100%;
+  padding: 3rem 1rem;
+  margin-top: -6rem;
+  background: linear-gradient(to top, #e0f7fa, #fffde7);
+  text-align: center;
+  font-family: 'Baloo 2', cursive;
+  color: #444;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-text {
+  font-size: 18px;
+  margin-bottom: 1rem;
+  color: #3b3b3b;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #4caf50;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #388e3c;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
