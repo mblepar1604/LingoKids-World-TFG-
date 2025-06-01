@@ -1,5 +1,3 @@
-// Paso 1: Añadir avatar al contexto global
-// En AuthContext.js o donde se maneja el contexto
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -16,7 +14,7 @@ export function AuthProvider({ children }) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${tokens.access_token}`;
     setUser(userData);
   };
-
+  
   const logout = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -52,10 +50,12 @@ export function AuthProvider({ children }) {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
+        console.log("GET /api/users/me/ →", res.data);
         setUser(res.data);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        if (res.data.perfil_id || res.data.perfilInfantil?.id) {
-          loadAvatar(res.data.perfil_id || res.data.perfilInfantil.id);
+
+        if (res.data.perfilInfantilId) {
+          loadAvatar(res.data.perfilInfantilId);
         }
       })
       .catch(() => logout())

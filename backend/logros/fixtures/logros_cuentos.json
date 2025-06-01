@@ -1,0 +1,44 @@
+[
+  {
+    "model": "logros.logro",
+    "pk": 10,
+    "fields": {
+      "codigo": "cuento1_completado",
+      "titulo": "¡Leyó La liebre y la tortuga!",
+      "descripcion": "Completa el cuento 'La liebre y la tortuga' para desbloquear este logro.",
+      "juego_id": null,
+      "cuento_id": 1,
+      "umbral": 0,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 11,
+    "fields": {
+      "codigo": "cuento2_5minutos",
+      "titulo": "¡Cinco minutos de lectura!",
+      "descripcion": "Lee al menos 300 segundos (5 minutos) del cuento 'El patito feo'.",
+      "juego_id": null,
+      "cuento_id": 2,
+      "umbral": 300,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 12,
+    "fields": {
+      "codigo": "cuento3_completado",
+      "titulo": "¡Caperucita completada!",
+      "descripcion": "Completa el cuento 'Caperucita Roja' para desbloquear.",
+      "juego_id": null,
+      "cuento_id": 3,
+      "umbral": 0,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  }
+]

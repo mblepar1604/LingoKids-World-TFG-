@@ -16,6 +16,8 @@ urlpatterns = [
     path('api/cuentos/', include('cuentos.urls')),
     path('api/juegos/', include('juegos.urls')),
     path('api/avatar/', include('avatar.urls')),
+    path('api/progreso/', include('progreso.urls')),
+    path('api/logros/', include('logros.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     re_path(r'^$', root_view),

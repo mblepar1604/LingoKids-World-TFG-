@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/Juegos.css';
+import LanguageSelector from './games/LanguageSelect';
 
 const categorias = [
   {
@@ -47,7 +48,7 @@ const categorias = [
   }
 ];
 
-const JuegosHTML = ({ categorias, navigate }) => {
+const JuegosHTML = ({ categorias, navigate, idioma, setIdioma }) => {
   return (
     <div className="dashboard-bg">
       <div className="background-wrap" style={{ backgroundImage: "url('/img/fondo-juegos.png')" }}>
@@ -55,9 +56,14 @@ const JuegosHTML = ({ categorias, navigate }) => {
       </div>
 
       <div className="menu-section">
+        <LanguageSelector idioma={idioma} setIdioma={setIdioma} />
         <div className="menu">
           {categorias.map(cat => (
-            <div className="card juegos" key={cat.id} onClick={() => navigate(cat.ruta)}>
+            <div
+              className="card juegos"
+              key={cat.id}
+              onClick={() => navigate(cat.ruta, { state: { idioma } })}
+            >
               <div className="emoji">{cat.icono}</div>
               <div className="label">{cat.titulo}</div>
               <p className="card-desc">{cat.descripcion}</p>
@@ -71,8 +77,9 @@ const JuegosHTML = ({ categorias, navigate }) => {
 
 const Juegos = () => {
   const navigate = useNavigate();
+  const [idioma, setIdioma] = useState('es');
 
-  return <JuegosHTML categorias={categorias} navigate={navigate} />;
+  return <JuegosHTML categorias={categorias} navigate={navigate} idioma={idioma} setIdioma={setIdioma} />;
 };
 
 export default Juegos;

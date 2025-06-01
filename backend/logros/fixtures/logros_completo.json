@@ -1,0 +1,618 @@
+[
+  {
+    "model": "logros.logro",
+    "pk": 1,
+    "fields": {
+      "codigo": "matching_pairs_10",
+      "titulo": "¡Parejas Imbatibles!",
+      "descripcion": "Encuentra al menos 10 pares en el MatchingGame para desbloquear este logro.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 2,
+    "fields": {
+      "codigo": "memory_matches_15",
+      "titulo": "¡Memoria de Oro!",
+      "descripcion": "Obtén al menos 15 coincidencias en MemoryGame para desbloquear este logro.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 15,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 3,
+    "fields": {
+      "codigo": "puzzle_completado",
+      "titulo": "¡Rompecabezas Resuelto!",
+      "descripcion": "Completa al menos una frase en PuzzleGame para desbloquear este logro.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 1,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 4,
+    "fields": {
+      "codigo": "simon_round_5",
+      "titulo": "¡Maestro de la Secuencia!",
+      "descripcion": "Alcanza la ronda 5 en SimonGame para desbloquear este logro.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 5,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 5,
+    "fields": {
+      "codigo": "snake_apple_20",
+      "titulo": "¡Devora 20 Manzanas!",
+      "descripcion": "Come al menos 20 manzanas en SnakeGame para desbloquear este logro.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 20,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 6,
+    "fields": {
+      "codigo": "whackamole_score_10",
+      "titulo": "¡Goleador de Topos!",
+      "descripcion": "Alcanza una puntuación de 10 en WhackAMole para desbloquear este logro.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 13,
+    "fields": {
+      "codigo": "juego_1_puntos_50",
+      "titulo": "¡50 puntos en Matching!",
+      "descripcion": "Consigue 50 puntos en MatchingGame.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 50,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 14,
+    "fields": {
+      "codigo": "juego_2_puntos_100",
+      "titulo": "¡100 puntos en Memory!",
+      "descripcion": "Consigue 100 puntos en MemoryGame.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 100,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 15,
+    "fields": {
+      "codigo": "juego_3_frases_10",
+      "titulo": "¡10 frases en Puzzle!",
+      "descripcion": "Completa 10 frases en PuzzleGame.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 16,
+    "fields": {
+      "codigo": "juego_4_round_10",
+      "titulo": "¡Ronda 10 en Simon!",
+      "descripcion": "Alcanza la ronda 10 en SimonGame.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 17,
+    "fields": {
+      "codigo": "juego_5_manzanas_50",
+      "titulo": "¡50 manzanas en Snake!",
+      "descripcion": "Come 50 manzanas en SnakeGame.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 50,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 18,
+    "fields": {
+      "codigo": "juego_6_topos_30",
+      "titulo": "¡30 topos golpeados!",
+      "descripcion": "Golpea 30 topos en WhackAMole.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 30,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 19,
+    "fields": {
+      "codigo": "logro_extra_19",
+      "titulo": "Logro Extra 19",
+      "descripcion": "Descripción del logro extra 19.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 19,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 20,
+    "fields": {
+      "codigo": "logro_extra_20",
+      "titulo": "Logro Extra 20",
+      "descripcion": "Descripción del logro extra 20.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 20,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 21,
+    "fields": {
+      "codigo": "logro_extra_21",
+      "titulo": "Logro Extra 21",
+      "descripcion": "Descripción del logro extra 21.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 21,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 22,
+    "fields": {
+      "codigo": "logro_extra_22",
+      "titulo": "Logro Extra 22",
+      "descripcion": "Descripción del logro extra 22.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 22,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 23,
+    "fields": {
+      "codigo": "logro_extra_23",
+      "titulo": "Logro Extra 23",
+      "descripcion": "Descripción del logro extra 23.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 23,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 24,
+    "fields": {
+      "codigo": "logro_extra_24",
+      "titulo": "Logro Extra 24",
+      "descripcion": "Descripción del logro extra 24.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 24,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 25,
+    "fields": {
+      "codigo": "logro_extra_25",
+      "titulo": "Logro Extra 25",
+      "descripcion": "Descripción del logro extra 25.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 25,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 26,
+    "fields": {
+      "codigo": "logro_extra_26",
+      "titulo": "Logro Extra 26",
+      "descripcion": "Descripción del logro extra 26.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 26,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 27,
+    "fields": {
+      "codigo": "logro_extra_27",
+      "titulo": "Logro Extra 27",
+      "descripcion": "Descripción del logro extra 27.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 27,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 28,
+    "fields": {
+      "codigo": "logro_extra_28",
+      "titulo": "Logro Extra 28",
+      "descripcion": "Descripción del logro extra 28.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 28,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 29,
+    "fields": {
+      "codigo": "logro_extra_29",
+      "titulo": "Logro Extra 29",
+      "descripcion": "Descripción del logro extra 29.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 29,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 30,
+    "fields": {
+      "codigo": "logro_extra_30",
+      "titulo": "Logro Extra 30",
+      "descripcion": "Descripción del logro extra 30.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 30,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 31,
+    "fields": {
+      "codigo": "logro_extra_31",
+      "titulo": "Logro Extra 31",
+      "descripcion": "Descripción del logro extra 31.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 31,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 32,
+    "fields": {
+      "codigo": "logro_extra_32",
+      "titulo": "Logro Extra 32",
+      "descripcion": "Descripción del logro extra 32.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 32,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 33,
+    "fields": {
+      "codigo": "logro_extra_33",
+      "titulo": "Logro Extra 33",
+      "descripcion": "Descripción del logro extra 33.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 33,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 34,
+    "fields": {
+      "codigo": "logro_extra_34",
+      "titulo": "Logro Extra 34",
+      "descripcion": "Descripción del logro extra 34.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 34,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 35,
+    "fields": {
+      "codigo": "logro_extra_35",
+      "titulo": "Logro Extra 35",
+      "descripcion": "Descripción del logro extra 35.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 35,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 36,
+    "fields": {
+      "codigo": "logro_extra_36",
+      "titulo": "Logro Extra 36",
+      "descripcion": "Descripción del logro extra 36.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 36,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 37,
+    "fields": {
+      "codigo": "logro_extra_37",
+      "titulo": "Logro Extra 37",
+      "descripcion": "Descripción del logro extra 37.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 37,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 38,
+    "fields": {
+      "codigo": "logro_extra_38",
+      "titulo": "Logro Extra 38",
+      "descripcion": "Descripción del logro extra 38.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 38,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 39,
+    "fields": {
+      "codigo": "logro_extra_39",
+      "titulo": "Logro Extra 39",
+      "descripcion": "Descripción del logro extra 39.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 39,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 40,
+    "fields": {
+      "codigo": "logro_extra_40",
+      "titulo": "Logro Extra 40",
+      "descripcion": "Descripción del logro extra 40.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 40,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 41,
+    "fields": {
+      "codigo": "logro_extra_41",
+      "titulo": "Logro Extra 41",
+      "descripcion": "Descripción del logro extra 41.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 41,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 42,
+    "fields": {
+      "codigo": "logro_extra_42",
+      "titulo": "Logro Extra 42",
+      "descripcion": "Descripción del logro extra 42.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 42,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 43,
+    "fields": {
+      "codigo": "logro_extra_43",
+      "titulo": "Logro Extra 43",
+      "descripcion": "Descripción del logro extra 43.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 43,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 44,
+    "fields": {
+      "codigo": "logro_extra_44",
+      "titulo": "Logro Extra 44",
+      "descripcion": "Descripción del logro extra 44.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 44,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 45,
+    "fields": {
+      "codigo": "logro_extra_45",
+      "titulo": "Logro Extra 45",
+      "descripcion": "Descripción del logro extra 45.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 45,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 46,
+    "fields": {
+      "codigo": "logro_extra_46",
+      "titulo": "Logro Extra 46",
+      "descripcion": "Descripción del logro extra 46.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 46,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 47,
+    "fields": {
+      "codigo": "logro_extra_47",
+      "titulo": "Logro Extra 47",
+      "descripcion": "Descripción del logro extra 47.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 47,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 48,
+    "fields": {
+      "codigo": "logro_extra_48",
+      "titulo": "Logro Extra 48",
+      "descripcion": "Descripción del logro extra 48.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 48,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 49,
+    "fields": {
+      "codigo": "logro_extra_49",
+      "titulo": "Logro Extra 49",
+      "descripcion": "Descripción del logro extra 49.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 49,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 50,
+    "fields": {
+      "codigo": "logro_extra_50",
+      "titulo": "Logro Extra 50",
+      "descripcion": "Descripción del logro extra 50.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 50,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "model": "logros.logro",
+    "pk": 1,
+    "fields": {
+      "codigo": "matching_pairs_10",
+      "titulo": "¡Parejas Imbatibles!",
+      "descripcion": "Encuentra al menos 10 pares en el MatchingGame para desbloquear este logro.",
+      "juego_id": 1,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 2,
+    "fields": {
+      "codigo": "memory_matches_15",
+      "titulo": "¡Memoria de Oro!",
+      "descripcion": "Obtén al menos 15 coincidencias en MemoryGame para desbloquear este logro.",
+      "juego_id": 2,
+      "cuento_id": null,
+      "umbral": 15,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 3,
+    "fields": {
+      "codigo": "puzzle_completado",
+      "titulo": "¡Rompecabezas Resuelto!",
+      "descripcion": "Completa al menos una frase en PuzzleGame para desbloquear este logro.",
+      "juego_id": 3,
+      "cuento_id": null,
+      "umbral": 1,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 4,
+    "fields": {
+      "codigo": "simon_round_5",
+      "titulo": "¡Maestro de la Secuencia!",
+      "descripcion": "Alcanza la ronda 5 en SimonGame para desbloquear este logro.",
+      "juego_id": 4,
+      "cuento_id": null,
+      "umbral": 5,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 5,
+    "fields": {
+      "codigo": "snake_apple_20",
+      "titulo": "¡Devora 20 Manzanas!",
+      "descripcion": "Come al menos 20 manzanas en SnakeGame para desbloquear este logro.",
+      "juego_id": 5,
+      "cuento_id": null,
+      "umbral": 20,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 6,
+    "fields": {
+      "codigo": "whackamole_score_10",
+      "titulo": "¡Goleador de Topos!",
+      "descripcion": "Alcanza una puntuación de 10 en WhackAMole para desbloquear este logro.",
+      "juego_id": 6,
+      "cuento_id": null,
+      "umbral": 10,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 7,
+    "fields": {
+      "codigo": "cuento1_completado",
+      "titulo": "¡Leyó La liebre y la tortuga!",
+      "descripcion": "Completa el cuento 'La liebre y la tortuga' para desbloquear este logro.",
+      "juego_id": null,
+      "cuento_id": 1,
+      "umbral": 0,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 8,
+    "fields": {
+      "codigo": "cuento2_5minutos",
+      "titulo": "¡Cinco minutos de lectura!",
+      "descripcion": "Lee al menos 300 segundos (5 minutos) del cuento 'El patito feo'.",
+      "juego_id": null,
+      "cuento_id": 2,
+      "umbral": 300,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "logros.logro",
+    "pk": 9,
+    "fields": {
+      "codigo": "cuento3_completado",
+      "titulo": "¡Caperucita completada!",
+      "descripcion": "Completa el cuento 'Caperucita Roja' para desbloquear este logro.",
+      "juego_id": null,
+      "cuento_id": 3,
+      "umbral": 0,
+      "activo": true,
+      "fecha_creacion": "2025-01-01T00:00:00Z"
+    }
+  }
+]

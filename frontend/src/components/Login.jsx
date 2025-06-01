@@ -5,7 +5,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import './styles/Login.css';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError]       = useState('');
   const navigate                = useNavigate();
@@ -16,8 +16,13 @@ const Login = () => {
     setError('');
 
     try {
-      // Llamada al nuevo endpoint que ya genera el token directamente
-      const { data } = await axios.post('/api/users/login/', { username, password });
+      // Prueba enviando ambos campos: username y email, el backend debe aceptar uno de los dos
+      const payload = {
+        username: usernameOrEmail,
+        email: usernameOrEmail,
+        password
+      };
+      const { data } = await axios.post('/api/users/login/', payload);
       const accessToken = data.access_token;
 
       // Obtener datos del usuario
@@ -58,12 +63,12 @@ const Login = () => {
         <h2 className="login-title">Iniciar Sesión</h2>
         {error && <div className="error">{error}</div>}
         <label className="login-label">
-          Usuario
+          Usuario o Email
           <input
             type="text"
             className="login-input"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
+            value={usernameOrEmail}
+            onChange={e => setUsernameOrEmail(e.target.value)}
             required
           />
         </label>
@@ -79,7 +84,7 @@ const Login = () => {
         </label>
         <button type="submit" className="login-button">Entrar</button>
         <p className="login-footer">
-          ¿No tienes cuenta? <Link to="/registro">Regístrate aquí</Link>
+          ¿No tienes cuenta? <Link to="/registro">Regístrate como madre/padre aquí</Link>
         </p>
       </form>
     </div>

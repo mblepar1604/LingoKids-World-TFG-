@@ -1,18 +1,14 @@
 .language-selector {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: #ffffffcc;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Baloo 2', cursive;
-  z-index: 10;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .language-selector label {
-  margin-right: 0.5rem;
   font-weight: bold;
+  color: #333;
 }
 
 .language-selector select {

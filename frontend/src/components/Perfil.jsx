@@ -33,6 +33,8 @@ const Perfil = () => {
     <div className="perfil-page">
       <h2>Perfil de Usuario</h2>
       <p><strong>Nombre de usuario:</strong> {user?.username}</p>
+      <p><strong>Nombre completo:</strong> {user?.first_name} {user?.last_name}</p>
+      <p><strong>Email:</strong> {user?.email}</p>
 
       <form onSubmit={handleChangePass}>
         <h3>Cambiar contraseña</h3>
