@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TipoJuego, Juego, ProgresoJuego
+from .models import TipoJuego, Juego, EstadisticaJuego
 
 @admin.register(TipoJuego)
 class TipoJuegoAdmin(admin.ModelAdmin):
@@ -13,8 +13,8 @@ class JuegoAdmin(admin.ModelAdmin):
     list_filter = ['tipo', 'idioma', 'activo']
     search_fields = ['titulo', 'descripcion']
 
-@admin.register(ProgresoJuego)
-class ProgresoJuegoAdmin(admin.ModelAdmin):
-    list_display = ['perfil_infantil', 'juego', 'puntuacion', 'nivel_completado', 'completado', 'fecha_ultima_partida']
-    list_filter = ['completado', 'juego__tipo']
-    search_fields = ['perfil_infantil__nombre', 'juego__titulo']
+@admin.register(EstadisticaJuego)
+class EstadisticaJuegoAdmin(admin.ModelAdmin):
+    list_display = ['juego', 'total_jugadores', 'promedio_puntuacion', 'tiempo_promedio']
+    list_filter = ['juego__tipo']
+    search_fields = ['juego__titulo']

@@ -8,7 +8,7 @@ import './index.css';
 
 // Configura baseURL y añade el JWT desde localStorage bajo la key "token"
 axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-const token = localStorage.getItem('token');
+const token = localStorage.getItem('access_token');
 if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }

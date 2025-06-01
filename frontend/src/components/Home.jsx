@@ -6,6 +6,9 @@ import '../styles/index.css';
 const Home = () => {
   const { user, logout, avatarUrl } = useContext(AuthContext);
 
+  // EXTRAEMOS el perfilInfantilId, que REST TAMBIÉN retorna en /api/users/me/
+   const perfilId = user?.perfilInfantilId || '';
+
   // HTML extraído a función aparte
   const renderHome = () => (
     <div className="dashboard-bg">
@@ -19,7 +22,7 @@ const Home = () => {
         <h1 className="dashboard-title">LingoKids World</h1>
 
         <div className="circles">
-          <a href="/progreso" className="circle small link-circle">📈</a>
+          <a href={`/progreso/${perfilId}`} className="circle small link-circle">📈</a>
           <div className="circle large avatar-container">
             <img src={avatarUrl || '/img/avatar.png'} alt="Avatar" className="avatar-img" />
           </div>
@@ -52,7 +55,7 @@ const Home = () => {
             <div className="label">Mi Avatar</div>
           </div>
 
-          <div className="card progreso" onClick={() => window.location.href = '/progreso'}>
+          <div className="card progreso" onClick={() => window.location.href = `/progreso/${perfilId}`}>
             <div className="emoji">🏆</div>
             <div className="label">Progreso y Logros</div>
           </div>

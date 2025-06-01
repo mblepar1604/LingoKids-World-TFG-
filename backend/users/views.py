@@ -1,17 +1,14 @@
-from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework_simplejwt.tokens import AccessToken
-from datetime import timedelta
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import (
-    PerfilInfantilSerializer, 
+    PerfilInfantilSerializer,
     RegistroSerializer,
-    ConfiguracionParentalSerializer, 
+    ConfiguracionParentalSerializer,
     ChildSerializer
 )
-from .models import ConfiguracionParental, User
+from .models import ConfiguracionParental, User, PerfilInfantil
 
 class RegistroUsuarioView(APIView):
     authentication_classes = []
@@ -48,8 +45,10 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
 
         if user and user.is_active:
-            tiempo_token = timedelta(minutes=60)
+            from rest_framework_simplejwt.tokens import AccessToken
+            from datetime import timedelta
 
+            tiempo_token = timedelta(minutes=60)
             if user.es_infantil:
                 try:
                     if user.parent:
@@ -89,48 +88,96 @@ class ConfiguracionParentalView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import PerfilInfantil
+
 class UsuarioActualView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
-        return Response({
+        data = {
             "id": user.id,
             "username": user.username,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "email": user.email,
             "es_padre": user.es_padre,
             "es_infantil": user.es_infantil,
-        })
+        }
 
+        if user.es_infantil:
+            perfil = PerfilInfantil.objects.get(user_infantil=user)
+            data["perfilInfantilId"] = perfil.id
+
+        return Response(data)
 class ChildrenAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         if not request.user.es_padre:
-            return Response({'detail': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
-        serializer = ChildSerializer(request.user.children.all(), many=True)
-        return Response(serializer.data)
+            return Response({'detail': 'Forbidden'}, status=403)
+
+        # Obtenemos todos los usuarios infantiles cuyo 'parent' es el usuario actual
+        hijos_qs = request.user.children.all()
+        resultado = []
+
+        for hijo in hijos_qs:
+            # Buscamos el PerfilInfantil cuyos user_infantil sea este hijo
+            try:
+                perfil = PerfilInfantil.objects.get(user_infantil=hijo)
+                perfil_id = perfil.id
+            except PerfilInfantil.DoesNotExist:
+                # Si no existiera perfil (aunque debería existir), ponemos None o 0
+                perfil_id = None
+
+            resultado.append({
+                'id': hijo.id,
+                'username': hijo.username,
+                'perfil_id': perfil_id
+            })
+
+        return Response(resultado)
 
     def post(self, request):
         if not request.user.es_padre:
-            return Response({'detail': 'Forbidden'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'detail': 'Forbidden'}, status=403)
+
         serializer = ChildSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
-            child = serializer.save()
-            return Response(ChildSerializer(child).data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+            child_user = serializer.save()
+
+            # Buscamos el PerfilInfantil que acabamos de crear
+            perfil_obj = PerfilInfantil.objects.get(
+                usuario_padre=request.user,
+                nombre=f"{child_user.first_name} {child_user.last_name}"
+            )
+            data = {
+                'user_id': child_user.id,
+                'username': child_user.username,
+                'perfil_id': perfil_obj.id
+            }
+            return Response(data, status=201)
+
+        return Response(serializer.errors, status=400)
+
     def delete(self, request, pk=None):
         if not request.user.es_padre:
-            return Response({'detail': 'No autorizado'}, status=status.HTTP_403_FORBIDDEN)
-        
+            return Response({'detail': 'No autorizado'}, status=403)
         try:
             child = request.user.children.get(pk=pk)
+            # Antes de borrar el User, borramos su perfil infantil
+            PerfilInfantil.objects.filter(
+                usuario_padre=request.user,
+                nombre=f"{child.first_name} {child.last_name}"
+            ).delete()
             child.delete()
-            return Response({'detail': 'Eliminado correctamente'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'detail': 'Eliminado correctamente'}, status=204)
         except User.DoesNotExist:
-            return Response({'detail': 'Hijo no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-    
+            return Response({'detail': 'Hijo no encontrado'}, status=404)
+
 class CambiarContrasenaView(APIView):
     permission_classes = [IsAuthenticated]
 

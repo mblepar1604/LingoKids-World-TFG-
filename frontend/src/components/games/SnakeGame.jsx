@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../styles/games/SnakeGame.css';
+import axios from 'axios';
 
+/**
+ * SnakeGameHTML: Vista de la serpiente en tablero.
+ */
 const SnakeGameHTML = ({
   boardSize,
   snake,
@@ -29,7 +33,7 @@ const SnakeGameHTML = ({
           </ul>
         </section>
       </div>
-      {/* Solo mostrar el popup de inicio si no hay game over */}
+      {/* Solo mostrar popup de inicio si no hay game over */}
       {showStart && !gameOver && (
         <div
           className="snake-popup-overlay"
@@ -58,16 +62,21 @@ const SnakeGameHTML = ({
             }}
           >
             <h2>Snake Game</h2>
-            <button onClick={onStart} style={{
-              marginTop: '1rem',
-              padding: '0.7rem 2.5rem',
-              background: '#4caf50',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '1.2rem',
-              cursor: 'pointer'
-            }}>Start game</button>
+            <button
+              onClick={onStart}
+              style={{
+                marginTop: '1rem',
+                padding: '0.7rem 2.5rem',
+                background: '#4caf50',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '1.2rem',
+                cursor: 'pointer'
+              }}
+            >
+              Start game
+            </button>
           </div>
         </div>
       )}
@@ -124,7 +133,14 @@ const SnakeGameHTML = ({
   );
 };
 
-const SnakeGame = () => {
+/**
+ * SnakeGame: Lógica principal de Snake.
+ *
+ * Props esperadas:
+ *   - perfilId: id de PerfilInfantil para enviar progreso.
+ *   - juegoId: id de Juego correspondiente.
+ */
+const SnakeGame = ({ perfilId, juegoId }) => {
   const [snake, setSnake] = useState([[5, 5]]);
   const [food, setFood] = useState([10, 10]);
   const [foodImage, setFoodImage] = useState('/img/games/fruta_manzana.png');
@@ -137,10 +153,15 @@ const SnakeGame = () => {
   const boardSize = 20;
   const intervalRef = useRef(null);
 
-  // Referencias para los sonidos
+  // Sonidos
   const comerAudioRef = useRef(null);
   const gameOverAudioRef = useRef(null);
 
+  // Para medir tiempo
+  const startTimeRef = useRef(null);
+  const hasSentProgressRef = useRef(false);
+
+  // Manejo de evento keydown e intervalo de movimiento
   useEffect(() => {
     if (showStart || gameOver) return;
 
@@ -165,35 +186,21 @@ const SnakeGame = () => {
     // eslint-disable-next-line
   }, [snake, direction, showStart, gameOver, hasMoved, pendingDirection]);
 
-  const handleKeyPress = e => {
-    const keyToDir = {
-      ArrowUp: 'UP',
-      ArrowDown: 'DOWN',
-      ArrowLeft: 'LEFT',
-      ArrowRight: 'RIGHT'
-    };
-    const newDir = keyToDir[e.key];
-    if (!newDir) return;
-
-    // No permitir girar 180º
-    if (
-      (direction === 'UP' && newDir === 'DOWN') ||
-      (direction === 'DOWN' && newDir === 'UP') ||
-      (direction === 'LEFT' && newDir === 'RIGHT') ||
-      (direction === 'RIGHT' && newDir === 'LEFT')
-    ) {
-      return;
-    }
-
-    if (hasMoved) {
-      setDirection(newDir);
-      setHasMoved(false);
-      setPendingDirection(null);
-    } else {
-      setPendingDirection(prev => prev || newDir);
-    }
+  // Iniciar partida: registra startTime
+  const handleStart = () => {
+    setShowStart(false);
+    setSnake([[5, 5]]);
+    const firstFood = getRandomFood([[5, 5]]);
+    setFood(firstFood);
+    setFoodImage('/img/games/fruta_manzana.png');
+    setDirection('RIGHT');
+    setGameOver(false);
+    setScore(0);
+    hasSentProgressRef.current = false;
+    startTimeRef.current = Date.now();
   };
 
+  // Genera posición aleatoria para la fruta
   const getRandomFood = currentSnake => {
     let newFood;
     do {
@@ -201,16 +208,20 @@ const SnakeGame = () => {
         Math.floor(Math.random() * boardSize),
         Math.floor(Math.random() * boardSize)
       ];
-    } while (currentSnake.some(seg => seg[0] === newFood[0] && seg[1] === newFood[1]));
+    } while (
+      currentSnake.some(
+        seg => seg[0] === newFood[0] && seg[1] === newFood[1]
+      )
+    );
     return newFood;
   };
 
+  // Mover serpiente cada “tick”
   const moveSnake = () => {
     if (gameOver || showStart) return;
 
     let nextDirection = direction;
     if (pendingDirection) {
-      // No permitir girar 180º
       if (
         !(
           (direction === 'UP' && pendingDirection === 'DOWN') ||
@@ -247,7 +258,7 @@ const SnakeGame = () => {
         break;
     }
 
-    // Colisiones
+    // Verificar colisión
     if (
       head[0] < 0 ||
       head[1] < 0 ||
@@ -266,11 +277,11 @@ const SnakeGame = () => {
 
     newSnake.push(head);
 
-    // Comer manzana
+    // Si come fruta
     if (head[0] === food[0] && head[1] === food[1]) {
       const nextFood = getRandomFood(newSnake);
       setFood(nextFood);
-      setScore(prev => prev + 50); // <-- suma 50 puntos
+      setScore(prev => prev + 50);
       if (comerAudioRef.current) {
         comerAudioRef.current.currentTime = 0;
         comerAudioRef.current.play();
@@ -282,6 +293,67 @@ const SnakeGame = () => {
     setSnake(newSnake);
   };
 
+  // Detecta “Game Over” para enviar progreso
+  useEffect(() => {
+    if (gameOver) {
+      // Sólo enviamos una vez
+      if (!hasSentProgressRef.current) {
+        hasSentProgressRef.current = true;
+        const tiempoMs = Date.now() - startTimeRef.current;
+        const tiempoSegs = Math.floor(tiempoMs / 1000);
+
+        const stats = {
+          score: score,
+          time_seconds: tiempoSegs
+        };
+
+        axios
+          .post('/api/progreso/juegos/', {
+            perfil_infantil: perfilId,
+            juego: juegoId,
+            tiempo_jugado: tiempoSegs,
+            estadisticas: stats
+          })
+          .catch(err => console.error('Error enviando progreso SnakeGame:', err));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameOver]);
+
+  // Manejo de teclas
+  const handleKeyPress = e => {
+    const keyToDir = {
+      ArrowUp: 'UP',
+      ArrowDown: 'DOWN',
+      ArrowLeft: 'LEFT',
+      ArrowRight: 'RIGHT'
+    };
+    const newDir = keyToDir[e.key];
+    if (!newDir) return;
+
+    if (
+      (direction === 'UP' && newDir === 'DOWN') ||
+      (direction === 'DOWN' && newDir === 'UP') ||
+      (direction === 'LEFT' && newDir === 'RIGHT') ||
+      (direction === 'RIGHT' && newDir === 'LEFT')
+    ) {
+      return;
+    }
+
+    if (hasMoved) {
+      setDirection(newDir);
+      setHasMoved(false);
+      setPendingDirection(null);
+    } else {
+      setPendingDirection(prev => prev || newDir);
+    }
+  };
+
+  // Limpiar intervalo al desmontar
+  useEffect(() => {
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
   const restartGame = () => {
     clearInterval(intervalRef.current);
     setSnake([[5, 5]]);
@@ -290,23 +362,14 @@ const SnakeGame = () => {
     setFoodImage('/img/games/fruta_manzana.png');
     setDirection('RIGHT');
     setGameOver(false);
-    setScore(0); // <-- reinicia el marcador
-  };
-
-  const handleStart = () => {
-    setShowStart(false);
-    setSnake([[5, 5]]);
-    const firstFood = getRandomFood([[5, 5]]);
-    setFood(firstFood);
-    setFoodImage('/img/games/fruta_manzana.png');
-    setDirection('RIGHT');
-    setGameOver(false);
-    setScore(0); // <-- reinicia el marcador
+    setScore(0);
+    hasSentProgressRef.current = false;
+    startTimeRef.current = null;
+    setShowStart(true);
   };
 
   return (
     <>
-      {/* Sonidos ocultos */}
       <audio ref={comerAudioRef} src="/sounds/comer.mp3" preload="auto" />
       <audio ref={gameOverAudioRef} src="/sounds/game_over.mp3" preload="auto" />
       <SnakeGameHTML
@@ -318,7 +381,7 @@ const SnakeGame = () => {
         restartGame={restartGame}
         showStart={showStart}
         onStart={handleStart}
-        score={score} // <-- pasa el marcador
+        score={score}
       />
     </>
   );

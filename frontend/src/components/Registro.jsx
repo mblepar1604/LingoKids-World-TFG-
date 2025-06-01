@@ -7,6 +7,9 @@ const Registro = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
+    nombre: '',
+    apellidos: '',
+    email: '',
     es_padre: true,      // en backend usa es_padre / es_infantil
     es_infantil: false,
   });
@@ -38,6 +41,39 @@ const Registro = () => {
       <form className="register-form" onSubmit={handleSubmit}>
         <h2 className="register-title">Registro</h2>
         {error && <div className="error">{error}</div>}
+        <label className="register-label">
+          Nombre
+          <input
+            type="text"
+            name="nombre"
+            className="register-input"
+            value={formData.nombre}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label className="register-label">
+          Apellidos
+          <input
+            type="text"
+            name="apellidos"
+            className="register-input"
+            value={formData.apellidos}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label className="register-label">
+          Email
+          <input
+            type="email"
+            name="email"
+            className="register-input"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </label>
         <label className="register-label">
           Usuario
           <input

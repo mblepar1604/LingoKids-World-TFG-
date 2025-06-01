@@ -29,6 +29,12 @@ class RegistroSerializer(serializers.ModelSerializer):
         return user
 
 class ChildSerializer(serializers.ModelSerializer):
+    # Ahora usamos first_name y last_name para nombre y apellidos
+    first_name = serializers.CharField(write_only=True, required=True)
+    last_name  = serializers.CharField(write_only=True, required=True)
+    edad = serializers.IntegerField(write_only=True, required=True)
+
+    # El campo parent se asigna automáticamente
     parent = serializers.PrimaryKeyRelatedField(
         read_only=True,
         default=serializers.CurrentUserDefault()
@@ -36,19 +42,37 @@ class ChildSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'parent']
+        # Incluimos first_name, last_name y edad
+        fields = ['id', 'username', 'password', 'parent', 'first_name', 'last_name', 'edad']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        # Creamos el niño con es_infantil=True
+        # Extraemos first_name, last_name y edad
+        first_name = validated_data.pop('first_name')
+        last_name  = validated_data.pop('last_name')
+        edad       = validated_data.pop('edad')
+
+        # 1) Creamos el User con es_infantil=True y asignamos nombre y apellidos
         user = User.objects.create_user(
-            username=validated_data['username'],
-            password=validated_data['password'],
-            es_infantil=True
+            username      = validated_data['username'],
+            password      = validated_data['password'],
+            es_infantil   = True,
+            first_name    = first_name,
+            last_name     = last_name
         )
-        # Vinculamos al padre
-        user.parent = self.context['request'].user
+        # 2) Vinculamos al padre
+        parent_user = self.context['request'].user
+        user.parent = parent_user
         user.save()
+
+        # 3) Creamos el PerfilInfantil asociado
+        PerfilInfantil.objects.create(
+            usuario_padre = parent_user,
+            user_infantil = user,
+            nombre = f"{first_name} {last_name}",
+            edad = edad
+        )
+
         return user
 
 class ConfiguracionParentalSerializer(serializers.ModelSerializer):

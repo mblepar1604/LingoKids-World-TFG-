@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
     'cuentos',
     'juegos',
     'avatar',
+    'progreso',
+    'logros',
     'django_filters',
 ]
 

@@ -24,6 +24,11 @@ class PerfilInfantil(models.Model):
         on_delete=models.CASCADE,
         related_name='perfiles_infantiles'
     )
+    user_infantil = models.OneToOneField(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE, 
+        related_name='perfil_infantil', 
+        null=True)
     nombre = models.CharField(max_length=100)
     edad = models.PositiveIntegerField()
     avatar = models.CharField(max_length=100, default='avatar_default_1')
