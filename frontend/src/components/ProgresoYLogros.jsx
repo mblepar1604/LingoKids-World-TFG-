@@ -8,6 +8,7 @@ import { AuthContext } from '../contexts/AuthContext';
  */
 function ResumenGeneral({ tiempoTotal, tiempoJuegos, tiempoCuentos, pctJuegos, pctCuentos, formatTiempo }) {
   return (
+    
     <section className="resumen-general">
       <div className="tarjeta-general">
         <h3>Tiempo Total en la App</h3>
@@ -29,44 +30,106 @@ function ResumenGeneral({ tiempoTotal, tiempoJuegos, tiempoCuentos, pctJuegos, p
  * DetalleJuegos: muestra tabla con cada progreso de juego.
  */
 function DetalleJuegos({ progresosJuegos, juegosMap, formatTiempo }) {
+  // Mapeo de traducción para las estadísticas
+  const traduccionEstadisticas = {
+    // Matching Game
+    'total_pairs': 'Total de Parejas',
+    'pairs_found': 'Parejas Encontradas',
+    'failed_attempts': 'Intentos Fallidos',
+    'time_seconds': 'Tiempo (segundos)',
+    
+    // Memory Game
+    'matches_found': 'Coincidencias Encontradas',
+    
+    // Puzzle Game
+    'completado': 'Completado',
+    'movimientos': 'Movimientos',
+    'tiempo_resolucion': 'Tiempo de Resolución',
+    
+    // Simon Game
+    'max_round': 'Ronda Máxima',
+    'secuencia_maxima': 'Secuencia Máxima',
+    'tiempo_reaccion': 'Tiempo de Reacción',
+    
+    // Snake Game
+    'apple_count': 'Manzanas Recolectadas',
+    'snake_length': 'Longitud de la Serpiente',
+    'colisiones': 'Colisiones',
+    'lives_left': 'Vidas Restantes',
+    
+    // Whack a Mole
+    'score': 'Puntuación',
+    'moles_hit': 'Topos Golpeados',
+    'missed_hits': 'Golpes Fallidos',
+    'accuracy': 'Precisión',
+    
+    // Estadísticas generales
+    'tiempo_jugado': 'Tiempo Jugado',
+    'nivel': 'Nivel',
+    'intentos': 'Intentos',
+    'aciertos': 'Aciertos',
+    'errores': 'Errores',
+    'velocidad': 'Velocidad',
+    'precision': 'Precisión',
+    'puntuacion': 'Puntuación',
+    'completado': 'Completado',
+    'tiempo_total': 'Tiempo Total',
+    'mejor_tiempo': 'Mejor Tiempo',
+    'partidas_jugadas': 'Partidas Jugadas',
+    'victorias': 'Victorias',
+    'derrotas': 'Derrotas'
+  };
+
+  // Función para formatear valores según su tipo
+  const formatearValor = (clave, valor) => {
+    if (typeof valor === 'boolean') {
+      return valor ? '✅' : '❌';
+    }
+    if (clave.includes('tiempo') || clave.includes('time')) {
+      return formatTiempo(valor);
+    }
+    if (clave.includes('precision') || clave.includes('accuracy')) {
+      return `${valor}%`;
+    }
+    return valor;
+  };
+
   return (
     <section className="detalle-juegos">
       <h3>Progreso por Juego</h3>
       {progresosJuegos.length === 0 ? (
         <p>No hay registros de juego todavía.</p>
       ) : (
-        <table className="tabla-progreso">
-          <thead>
-            <tr>
-              <th>Juego</th>
-              <th>Tiempo Jugado</th>
-              <th>Estadísticas</th>
-              <th>Última Actualización</th>
-            </tr>
-          </thead>
-          <tbody>
-            {progresosJuegos.map(pj => (
-              <tr key={pj.id}>
-                <td>{juegosMap[pj.juego]?.titulo || pj.juego}</td>
-                <td>{formatTiempo(pj.tiempo_jugado)}</td>
-                <td>
-                  {pj.estadisticas && Object.keys(pj.estadisticas).length > 0 ? (
+        <div className="progreso-grid">
+          {progresosJuegos.map(pj => (
+            <div key={pj.id} className="progreso-card">
+              <h4>{juegosMap[pj.juego]?.titulo || pj.juego}</h4>
+              <div className="progreso-info">
+                <p>
+                  <strong>Tiempo Jugado:</strong>
+                  <span>{formatTiempo(pj.tiempo_jugado)}</span>
+                </p>
+                <p>
+                  <strong>Última Actualización:</strong>
+                  <span>{new Date(pj.actualizado).toLocaleString()}</span>
+                </p>
+                {pj.estadisticas && Object.keys(pj.estadisticas).length > 0 && (
+                  <div>
+                    <strong>Estadísticas:</strong>
                     <ul className="lista-estadisticas">
                       {Object.entries(pj.estadisticas).map(([clave, valor]) => (
                         <li key={clave}>
-                          <strong>{clave.replace(/_/g, ' ')}:</strong> {valor}
+                          <strong>{traduccionEstadisticas[clave] || clave.replace(/_/g, ' ')}</strong>
+                          <span>{formatearValor(clave, valor)}</span>
                         </li>
                       ))}
                     </ul>
-                  ) : (
-                    <span>—</span>
-                  )}
-                </td>
-                <td>{new Date(pj.actualizado).toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </section>
   );
@@ -82,26 +145,38 @@ function DetalleCuentos({ progresosCuentos, cuentosMap, formatTiempo }) {
       {progresosCuentos.length === 0 ? (
         <p>No hay registros de lectura todavía.</p>
       ) : (
-        <table className="tabla-progreso">
-          <thead>
-            <tr>
-              <th>Cuento</th>
-              <th>Tiempo Leído</th>
-              <th>Completado</th>
-              <th>Última Actualización</th>
-            </tr>
-          </thead>
-          <tbody>
-            {progresosCuentos.map(pc => (
-              <tr key={pc.id}>
-                <td>{cuentosMap[pc.cuento]?.titulo || pc.cuento}</td>
-                <td>{formatTiempo(pc.tiempo_leido)}</td>
-                <td>{pc.completado ? '✅' : '❌'}</td>
-                <td>{new Date(pc.actualizado).toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="progreso-grid">
+          {progresosCuentos.map(pc => {
+            const cuentoInfo = cuentosMap[pc.cuento] || {};
+            return (
+              <div key={pc.id} className="progreso-card">
+                <h4>{cuentoInfo.titulo || 'Cuento sin título'}</h4>
+                <div className="progreso-info">
+                  <p>
+                    <strong>Tiempo Leído:</strong>
+                    <span>{formatTiempo(pc.tiempo_leido || 0)}</span>
+                  </p>
+                  <p>
+                    <strong>Estado:</strong>
+                    <span className={`estado-badge ${pc.completado ? 'estado-completado' : 'estado-pendiente'}`}>
+                      {pc.completado ? 'Completado' : 'En progreso'}
+                    </span>
+                  </p>
+                  {cuentoInfo.categoria && (
+                    <p>
+                      <strong>Categoría:</strong>
+                      <span>{cuentoInfo.categoria}</span>
+                    </p>
+                  )}
+                  <p>
+                    <strong>Última Actualización:</strong>
+                    <span>{new Date(pc.actualizado).toLocaleString()}</span>
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </section>
   );
@@ -193,8 +268,10 @@ const ProgresoYLogros = ({ perfilId }) => {
         const mapaC = {};
         resCuentos.data.forEach(c => {
           mapaC[c.id] = {
-            titulo: c.titulo,
-            categoria: c.categoria || null
+            titulo: c.titulo || 'Sin título',
+            categoria: c.categoria || null,
+            idioma: c.idioma || null,
+            personalizable: c.personalizable || false
           };
         });
         setCuentosMap(mapaC);
@@ -210,8 +287,15 @@ const ProgresoYLogros = ({ perfilId }) => {
         const resProgC = await axios.get(
           `/api/progreso/cuentos/?perfil_infantil=${perfilId}`
         );
-        setProgresosCuentos(resProgC.data);
-        const pcMap = mapProgresoCuentoPorId(resProgC.data);
+        // Asegurarnos de que los datos tienen el formato correcto
+        const progresosCuentosFormateados = resProgC.data.map(pc => ({
+          ...pc,
+          tiempo_leido: pc.tiempo_leido || 0,
+          completado: pc.completado || false,
+          actualizado: pc.actualizado || new Date().toISOString()
+        }));
+        setProgresosCuentos(progresosCuentosFormateados);
+        const pcMap = mapProgresoCuentoPorId(progresosCuentosFormateados);
 
         // --- 6) Obtener logros DESBLOQUEADOS de la app "logros"
         const resLogrosDesc = await axios.get(
@@ -236,7 +320,7 @@ const ProgresoYLogros = ({ perfilId }) => {
           .filter(x => x !== null);
         setLogrosDesbloqueados(listaDescAplanada);
 
-        // --- 7) Obtener TODOS los logros ACTIVOS (para “Todos los Logros”)
+        // --- 7) Obtener TODOS los logros ACTIVOS (para "Todos los Logros")
         const resTodosLogros = await axios.get('/api/logros/');
         const enriquecido = resTodosLogros.data.map(logro => {
           const { id, codigo, titulo, descripcion, juego_id, cuento_id, umbral } = logro;
@@ -249,22 +333,22 @@ const ProgresoYLogros = ({ perfilId }) => {
             if (pj) {
               const estad = pj.estadisticas || {};
               switch (juego_id) {
-                case 1: // MatchingGame → “pairs_found”
+                case 1: // MatchingGame → "pairs_found"
                   valorActual = typeof estad.pairs_found === 'number' ? estad.pairs_found : 0;
                   break;
-                case 2: // MemoryGame → “matches_found”
+                case 2: // MemoryGame → "matches_found"
                   valorActual = typeof estad.matches_found === 'number' ? estad.matches_found : 0;
                   break;
-                case 3: // PuzzleGame → “completado” boolean (umbral=1)
+                case 3: // PuzzleGame → "completado" boolean (umbral=1)
                   valorActual = estad.completado === true ? 1 : 0;
                   break;
-                case 4: // SimonGame → “max_round”
+                case 4: // SimonGame → "max_round"
                   valorActual = typeof estad.max_round === 'number' ? estad.max_round : 0;
                   break;
-                case 5: // SnakeGame → “apple_count”
+                case 5: // SnakeGame → "apple_count"
                   valorActual = typeof estad.apple_count === 'number' ? estad.apple_count : 0;
                   break;
-                case 6: // WhackAMole → “score”
+                case 6: // WhackAMole → "score"
                   valorActual = typeof estad.score === 'number' ? estad.score : 0;
                   break;
                 default:
@@ -334,13 +418,13 @@ const ProgresoYLogros = ({ perfilId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [perfilId]);
 
-  // ➤ 1) Calculamos “tiempo en juegos” sumando todos los `tiempo_jugado`
+  // ➤ 1) Calculamos "tiempo en juegos" sumando todos los `tiempo_jugado`
   const tiempoJuegosSumados = progresosJuegos.reduce(
     (acc, pj) => acc + (pj.tiempo_jugado || 0),
     0
   );
 
-  // ➤ 2) Calculamos “tiempo en cuentos” sumando todos los `tiempo_leido`
+  // ➤ 2) Calculamos "tiempo en cuentos" sumando todos los `tiempo_leido`
   const tiempoCuentosSumados = progresosCuentos.reduce(
     (acc, pc) => acc + (pc.tiempo_leido || 0),
     0
@@ -363,9 +447,15 @@ const ProgresoYLogros = ({ perfilId }) => {
   // --- Renderizado principal
   const renderProgreso = () => (
     <div className="progreso-container">
-      <h2 className="titulo-seccion">Progreso de Aprendizaje</h2>
-
-      {/* ● ResumenGeneral: usa los tiempos que acabamos de calcular */}
+      {/* Fondo superior con curva y título */}
+      <div
+        className="background-wrap"
+        style={{ backgroundImage: "url('/img/fondoTFG.png')" }}
+      >
+        <h2 className="dashboard-title">Progreso de Aprendizaje</h2>
+      </div>
+  
+      {/* ● ResumenGeneral */}
       <ResumenGeneral
         tiempoTotal={tiempoTotalSumado}
         tiempoJuegos={tiempoJuegosSumados}
@@ -374,21 +464,21 @@ const ProgresoYLogros = ({ perfilId }) => {
         pctCuentos={pctCuentos}
         formatTiempo={formatTiempo}
       />
-
+  
       {/* ● Detalle de Juegos */}
       <DetalleJuegos
         progresosJuegos={progresosJuegos}
         juegosMap={juegosMap}
         formatTiempo={formatTiempo}
       />
-
+  
       {/* ● Detalle de Cuentos */}
       <DetalleCuentos
         progresosCuentos={progresosCuentos}
         cuentosMap={cuentosMap}
         formatTiempo={formatTiempo}
       />
-
+  
       {/* ● Logros Desbloqueados */}
       <section className="seccion-logros">
         <h3 className="seccion-logros__titulo">Logros Desbloqueados</h3>
@@ -410,17 +500,14 @@ const ProgresoYLogros = ({ perfilId }) => {
           </div>
         )}
       </section>
-
-      {/* ● Todos los Logros (Progreso) */}
+  
+      {/* ● Todos los Logros */}
       <div className="todos-logros">
         <h3>Todos los Logros (Progreso)</h3>
         <div className="grid-logros">
           {logrosSinDesbloquear.map((logro) => (
             <div key={logro.id} className="logro-card">
-              {/* Título de logro */}
               <div className="logro-titulo-small">{logro.titulo}</div>
-
-              {/* Si umbral=0 (solo completado/pedido booleano) */}
               {logro.umbral === 0 && logro.cumplido ? (
                 <div className="barra-exterior">
                   <div className="barra-interior" style={{ width: '100%' }} />
@@ -432,7 +519,6 @@ const ProgresoYLogros = ({ perfilId }) => {
                   <div className="barra-texto">0 / 1</div>
                 </div>
               ) : (
-                // Si umbral > 0 (progreso numérico)
                 <div className="barra-exterior">
                   <div
                     className="barra-interior"
@@ -449,6 +535,7 @@ const ProgresoYLogros = ({ perfilId }) => {
       </div>
     </div>
   );
+  
 
   if (loading) {
     return <div className="progreso-container">Cargando progreso...</div>;
