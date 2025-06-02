@@ -1,6 +1,8 @@
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
+import os
+from django.conf import settings
 
 def render_avatar(avatar) -> Image.Image:
     """
@@ -9,6 +11,19 @@ def render_avatar(avatar) -> Image.Image:
     """
     # Crear una imagen base transparente
     base_image = Image.new('RGBA', (500, 500), (0, 0, 0, 0))
+    
+    # Cargar el cuerpo base primero
+    try:
+        cuerpo_base_path = os.path.join(settings.MEDIA_ROOT, 'avatar', 'componentes', 'cuerpoBase.png')
+        if os.path.exists(cuerpo_base_path):
+            cuerpo_base = Image.open(cuerpo_base_path)
+            if cuerpo_base.mode != 'RGBA':
+                cuerpo_base = cuerpo_base.convert('RGBA')
+            if cuerpo_base.size != base_image.size:
+                cuerpo_base = cuerpo_base.resize(base_image.size, Image.Resampling.LANCZOS)
+            base_image = Image.alpha_composite(base_image, cuerpo_base)
+    except Exception as e:
+        print(f"Error al cargar el cuerpo base: {str(e)}")
     
     # Orden de renderizado (de atrás hacia adelante)
     components = [
