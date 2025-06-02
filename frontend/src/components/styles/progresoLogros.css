@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
 }
 
 /* TÍTULOS */
@@ -29,6 +28,7 @@
   margin-bottom: 3rem;
   width: 100%;
   max-width: 1200px;
+  margin-top: 6rem;
 }
 
 .tarjeta-general,
@@ -178,6 +178,8 @@
 .progreso-info {
   display: flex;
   flex-direction: column;
+  align-items: start;
+  justify-content: center;
   gap: 0.75rem;
   background: rgba(255, 255, 255, 0.7);
   padding: 1rem;
@@ -189,7 +191,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  width: 300px;
+  padding: 0.6rem 0.5rem;
+  padding-left: 0;
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -213,6 +217,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 1rem;
   background: #f8f9fa;
   border-radius: 15px;
   padding: 0.75rem;
@@ -224,6 +229,7 @@
   font-size: 0.9rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem;
   background: white;
   border-radius: 10px;
@@ -262,9 +268,6 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-  .progreso-container {
-    padding: 1rem;
-  }
 
   .resumen-general {
     flex-direction: column;
@@ -434,7 +437,7 @@
   100% { transform: translateY(0) rotate(var(--rotate)); }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .seccion-logros__grid,
   .grid-logros {
     grid-template-columns: 1fr;
@@ -445,9 +448,6 @@
 }
 
 @media (max-width: 767px) {
-  .progreso-container {
-    padding: 1rem;
-  }
 
   .resumen-general {
     flex-direction: column;
@@ -474,4 +474,218 @@
     justify-content: space-around;
     margin-bottom: 2rem;
   }
+}
+
+/* ESTILOS ESPECÍFICOS PARA CUENTOS */
+.detalle-cuentos {
+  padding: 2rem;
+}
+
+.detalle-cuentos h3 {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.detalle-cuentos h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  border-radius: 2px;
+}
+
+.detalle-cuentos .progreso-card {
+  border: 3px solid #ffb74d;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.detalle-cuentos .progreso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.detalle-cuentos .progreso-card h4 {
+  color: #e65100;
+  font-size: 1.6rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ffb74d;
+  text-align: center;
+  position: relative;
+}
+
+.detalle-cuentos .progreso-info {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1.2rem;
+  border-radius: 12px;
+}
+
+.detalle-cuentos .progreso-info p {
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.detalle-cuentos .progreso-info strong {
+  color: #e65100;
+  font-size: 1.1rem;
+}
+
+.detalle-cuentos .progreso-info span {
+  color: #e65100;
+  background: #fff3e0;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+.detalle-cuentos .estado-badge {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffb74d;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-cuentos .estado-completado {
+  background: linear-gradient(135deg, #c8e6c9, #81c784);
+  color: #2e7d32;
+  border-color: #81c784;
+}
+
+.detalle-cuentos .estado-pendiente {
+  background: #fff3e0;
+  color: #e65100;
+  border-color: #ffb74d;
+}
+
+.detalle-cuentos .progreso-card h4::after {
+  content: '📚';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+}
+
+/* Logros desbloqueados */
+.logro-card.desbloqueado {
+  background: linear-gradient(135deg, #f1f8e9, #e0f7fa);
+  border: 3px solid #4caf50;
+  color: #2e7d32;
+  box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+}
+
+.logro-card.desbloqueado:hover {
+  background: linear-gradient(135deg, #c8e6c9, #81c784);
+  border-color: #2e7d32;
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Titulos de secciones de Logros */
+.seccion-logros__titulo,
+.todos-logros h3 {
+  font-size: 1.8rem;
+  color: #388e3c; /* Un verde similar al de otros títulos de sección */
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block; /* Cambiado a inline-block */
+}
+
+.seccion-logros__titulo::after,
+.todos-logros h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0; /* Cambiado a 0 */
+  width: 100%; /* Cambiado a 100% */
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #81c784); /* Gradiente verde */
+  border-radius: 2px;
+}
+
+/* Logros Desbloqueados Section */
+.seccion-logros {
+  text-align: center; /* Centrar el contenido inline-block */
+  margin-bottom: 4rem;
+}
+
+/* Todos los Logros Section */
+.todos-logros {
+  text-align: center; /* Centrar el contenido inline-block */
+  margin-bottom: 6rem; /* Añadido para separar del footer */
+}
+
+.todos-logros h3 {
+  font-size: 1.8rem;
+  color: #388e3c;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.todos-logros h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #81c784);
+  border-radius: 2px;
+}
+
+
+/* Footer que se mantiene abajo */
+.site-footer {
+  margin-top: auto;
+  background: linear-gradient(to top, #f0fff4, #e0f7fa);
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-text {
+  font-family: 'Baloo 2', cursive;
+  color: #3e2723;
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
 }

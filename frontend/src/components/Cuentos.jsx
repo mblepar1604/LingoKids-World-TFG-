@@ -12,8 +12,64 @@ const Cuentos = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [cuentoActivo, setCuentoActivo] = useState(null);
   const [escenaActual, setEscenaActual] = useState(null);
+  const [tiempoInicio, setTiempoInicio] = useState(null);
+  const [tiempoAcumulado, setTiempoAcumulado] = useState(0);
 
   const { user, logout } = useContext(AuthContext);
+
+  // Función para actualizar el progreso del cuento
+  const actualizarProgresoCuento = async (completado = false) => {
+    if (!cuentoActivo || !user?.perfilInfantilId) {
+      console.log('No se puede actualizar: cuentoActivo o perfilInfantilId no disponibles');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        console.log('No hay token disponible');
+        return;
+      }
+
+      const tiempoActual = Math.floor((Date.now() - tiempoInicio) / 1000) + tiempoAcumulado;
+      console.log('Actualizando progreso:', {
+        perfil: user.perfilInfantilId,
+        cuento: cuentoActivo.id,
+        tiempo: tiempoActual,
+        completado
+      });
+      
+      const response = await axios.post('http://localhost:8000/api/progreso/cuentos/', {
+        perfil_infantil: user.perfilInfantilId,
+        cuento: cuentoActivo.id,
+        tiempo_leido: tiempoActual,
+        completado: completado
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      console.log('Respuesta del servidor:', response.data);
+    } catch (error) {
+      console.error('Error al actualizar progreso:', error.response?.data || error.message);
+    }
+  };
+
+  // Efecto para actualizar el tiempo cada minuto
+  useEffect(() => {
+    let intervalId;
+    
+    if (modalVisible && tiempoInicio) {
+      intervalId = setInterval(() => {
+        actualizarProgresoCuento();
+      }, 60000); // Actualizar cada minuto
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [modalVisible, tiempoInicio]);
 
   useEffect(() => {
     const fetchCuentos = async () => {
@@ -69,21 +125,50 @@ const Cuentos = () => {
       .catch(err => console.error('Error al aplicar filtros:', err));
   };
 
-  const abrirModal = (cuento) => {
+  const abrirModal = async (cuento) => {
     setCuentoActivo(cuento);
     const primeraEscena = cuento.contenido.escenas?.[0] || null;
     setEscenaActual(primeraEscena);
     setModalVisible(true);
+    setTiempoInicio(Date.now());
+    setTiempoAcumulado(0);
+
+    // Recuperar tiempo acumulado si existe
+    try {
+      const token = localStorage.getItem('access_token');
+      if (token && user?.perfilInfantilId) {
+        const response = await axios.get(
+          `/api/progreso/cuentos/?perfil_infantil=${user.perfilInfantilId}&cuento=${cuento.id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        if (response.data.length > 0) {
+          setTiempoAcumulado(response.data[0].tiempo_leido || 0);
+        }
+      }
+    } catch (error) {
+      console.error('Error al recuperar progreso:', error);
+    }
   };
 
-  const cerrarModal = () => {
+  const cerrarModal = async () => {
+    if (tiempoInicio) {
+      await actualizarProgresoCuento();
+    }
     setModalVisible(false);
     setCuentoActivo(null);
     setEscenaActual(null);
+    setTiempoInicio(null);
   };
 
-  const avanzarEscena = (idSiguiente) => {
+  const avanzarEscena = async (idSiguiente) => {
     const siguiente = cuentoActivo.contenido.escenas.find(e => e.id === idSiguiente);
+    
+    // Si no hay siguiente escena, es el final del cuento
+    if (!siguiente) {
+      console.log('Final del cuento detectado, marcando como completado');
+      await actualizarProgresoCuento(true); // Marcar como completado
+    }
+    
     setEscenaActual(siguiente || null);
   };
 

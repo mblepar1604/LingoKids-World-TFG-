@@ -450,7 +450,7 @@ const ProgresoYLogros = ({ perfilId }) => {
       {/* Fondo superior con curva y título */}
       <div
         className="background-wrap"
-        style={{ backgroundImage: "url('/img/fondoTFG.png')" }}
+        style={{ backgroundImage: "url('/img/fondo-progreso.png')" }}
       >
         <h2 className="dashboard-title">Progreso de Aprendizaje</h2>
       </div>
@@ -489,7 +489,7 @@ const ProgresoYLogros = ({ perfilId }) => {
         ) : (
           <div className="seccion-logros__grid">
             {logrosDesbloqueados.map((logro) => (
-              <div key={logro.id} className="logro-card">
+              <div key={logro.id} className="logro-card desbloqueado">
                 <h4 className="logro-card__titulo">{logro.titulo}</h4>
                 <p className="logro-card__descripcion">{logro.descripcion}</p>
                 <small className="logro-card__fecha">
@@ -533,6 +533,16 @@ const ProgresoYLogros = ({ perfilId }) => {
           ))}
         </div>
       </div>
+      <footer className="site-footer">
+        <div className="footer-content">
+          <p className="footer-text">🌈 LingoKids World © 2025 — Aprende jugando</p>
+          <div className="footer-links">
+            <a href="/ayuda">❓ Ayuda</a>
+            <a href="/contacto">✉️ Contacto</a>
+            <a href="/privacidad">🔒 Privacidad</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
   
