@@ -129,6 +129,17 @@ const SnakeGameHTML = ({
           })
         )}
       </div>
+      {/* Añadir el Footer */}
+      <footer className="site-footer">
+        <div className="footer-content">
+          <p className="footer-text">🌈 LingoKids World © 2025 — Aprende jugando</p>
+          <div className="footer-links">
+            <a href="/ayuda">❓ Ayuda</a>
+            <a href="/contacto">✉️ Contacto</a>
+            <a href="/privacidad">🔒 Privacidad</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
@@ -216,7 +227,7 @@ const SnakeGame = ({ perfilId, juegoId }) => {
     return newFood;
   };
 
-  // Mover serpiente cada “tick”
+  // Mover serpiente cada "tick"
   const moveSnake = () => {
     if (gameOver || showStart) return;
 
@@ -293,7 +304,7 @@ const SnakeGame = ({ perfilId, juegoId }) => {
     setSnake(newSnake);
   };
 
-  // Detecta “Game Over” para enviar progreso
+  // Detecta "Game Over" para enviar progreso
   useEffect(() => {
     if (gameOver) {
       // Sólo enviamos una vez

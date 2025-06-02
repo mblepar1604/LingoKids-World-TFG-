@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding-top: 2rem;
   font-family: 'Baloo 2', cursive;
   background: #f0f0f0;
   min-height: 100vh;
@@ -20,13 +20,18 @@
 }
 .whack-grid {
   display: grid;
-  grid-template-columns: repeat(3, 150px);
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 0.8rem;
   margin-top: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4rem;
 }
 .whack-hole {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  padding-top: 100%;
   background: #ddd;
   border: 4px solid #aaa;
   border-radius: 8px;
@@ -93,4 +98,38 @@
   width: 24px;
   height: 24px;
   margin-right: 0.25rem;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 700px) {
+  .whack-a-mole-container {
+    padding-top: 2rem;
+  }
+  .whack-title {
+    font-size: 2rem;
+  }
+  .whack-score,
+  .whack-timer {
+    font-size: 1rem;
+  }
+  .whack-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    grid-gap: 0.6rem;
+    max-width: 95%;
+  }
+}
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .whack-title {
+    font-size: 1.8rem;
+  }
+  .whack-score,
+  .whack-timer {
+    font-size: 0.9rem;
+  }
+  .whack-grid {
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    grid-gap: 0.4rem;
+  }
 }

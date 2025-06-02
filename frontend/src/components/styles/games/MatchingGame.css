@@ -1,5 +1,5 @@
 .matching-container {
-  padding: 2rem;
+  padding-top: 2rem;
   font-family: 'Baloo 2', cursive;
   background: linear-gradient(to bottom, #e8f5e9, #fffde7);
   min-height: 100vh;
@@ -19,14 +19,18 @@
 .images-grid,
 .words-grid {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 2rem;
   width: 100%;
   max-width: 1500px;
 }
 
+.words-grid{
+  margin-bottom: 4rem;
+}
+
 .images-grid {
-  margin: 6rem; /* separación extra entre filas */
+  margin: 6rem;
 }
 
 .card-item {
@@ -87,6 +91,40 @@
   cursor: default;
   pointer-events: none;
   transform: none !important;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .matching-title {
+    font-size: 28px;
+  }
+  .images-grid {
+    margin: 3rem 0;
+  }
+  .images-grid,
+  .words-grid {
+    gap: 0.75rem;
+  }
+  .card-item {
+    min-width: 80px;
+  }
+}
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .matching-title {
+    font-size: 24px;
+  }
+  .images-grid {
+    margin: 2rem 0;
+  }
+  .images-grid,
+  .words-grid {
+    gap: 0.5rem;
+  }
+  .card-item {
+    min-width: 60px;
+  }
 }
 
 .matching-footer {

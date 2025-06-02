@@ -1,5 +1,5 @@
 .secuencia-container {
-  padding: 2rem;
+  padding-top: 2rem;
   font-family: 'Baloo 2', cursive;
   background: linear-gradient(to bottom, #fff8e1, #e0f7fa);
   min-height: 100vh;
@@ -21,15 +21,17 @@
   margin-bottom: 2rem;
 }
 
-/* Grid 2x2, cuadrados de 300px */
+/* Grid 2x2 responsivo */
 .secuencia-botones {
   display: grid;
-  grid-template-columns: repeat(2, 300px);
-  grid-auto-rows: 300px;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajustado para responsividad */
+  grid-auto-rows: minmax(250px, 1fr); /* Ajustado para responsividad */
+  gap: 2rem; /* Reducir gap */
   justify-content: center;
   width: 100%;
-  max-width: 620px; /* 300*2 + gap */
+  max-width: 600px; /* Ajustar max-width */
+  margin: 0 auto; /* Centrar el grid */
+  margin-bottom: 4rem;
 }
 
 .boton-sonido {
@@ -120,4 +122,36 @@
 
 .popup-content button:hover {
   background: #388e3c;
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
+  .secuencia-title {
+    font-size: 28px;
+  }
+  .secuencia-sub {
+    font-size: 18px;
+  }
+  .secuencia-botones {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-auto-rows: minmax(140px, 1fr);
+    gap: 0.75rem;
+    max-width: 400px;
+  }
+}
+
+/* Media Query para pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .secuencia-title {
+    font-size: 24px;
+  }
+  .secuencia-sub {
+    font-size: 16px;
+  }
+  .secuencia-botones {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-auto-rows: minmax(120px, 1fr);
+    gap: 0.5rem;
+    max-width: 300px;
+  }
 }

@@ -43,6 +43,16 @@ const WhackAMoleHTML = ({
           </div>
         ))}
       </div>
+      <footer className="site-footer">
+        <div className="footer-content">
+          <p className="footer-text">🌈 LingoKids World © 2025 — Aprende jugando</p>
+          <div className="footer-links">
+            <a href="/ayuda">❓ Ayuda</a>
+            <a href="/contacto">✉️ Contacto</a>
+            <a href="/privacidad">🔒 Privacidad</a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
@@ -114,7 +124,7 @@ const WhackAMole = ({ perfilId, juegoId }) => {
     moleTimeoutRef.current = null;
   };
 
-  // Cada vez que el jugador “pega” (hit) o “falla” (miss), actualizamos estado
+  // Cada vez que el jugador "pega" (hit) o "falla" (miss), actualizamos estado
   const handleHit = index => {
     if (gameOverRef.current) return;
     if (moles[index]) {

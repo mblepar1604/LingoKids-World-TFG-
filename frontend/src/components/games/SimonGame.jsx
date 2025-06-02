@@ -44,11 +44,21 @@ const SecuenciaSonidosHTML = ({ ronda, sonidos, handleClick, animating }) => (
         </button>
       ))}
     </div>
+    <footer className="site-footer">
+      <div className="footer-content">
+        <p className="footer-text">🌈 LingoKids World © 2025 — Aprende jugando</p>
+        <div className="footer-links">
+          <a href="/ayuda">❓ Ayuda</a>
+          <a href="/contacto">✉️ Contacto</a>
+          <a href="/privacidad">🔒 Privacidad</a>
+        </div>
+      </div>
+    </footer>
   </div>
 );
 
 /**
- * SimonGame: Lógica principal del juego “Simon dice”.
+ * SimonGame: Lógica principal del juego "Simon dice".
  *
  * Props esperadas:
  *   - perfilId: id de PerfilInfantil para enviar progreso.
@@ -179,7 +189,7 @@ const SimonGame = ({ perfilId, juegoId }) => {
       if (!initialized.current) return;
       setPlaybackRate(prev => prev + 0.1);
       setRonda(prev => prev + 1);
-      // Registramos “mejor ronda alcanzada” antes de subir ronda
+      // Registramos "mejor ronda alcanzada" antes de subir ronda
       bestRoundRef.current = ronda;
       const next = Math.floor(Math.random() * sonidos.length);
       const newSeq = [...sequence, next];
@@ -227,7 +237,7 @@ const SimonGame = ({ perfilId, juegoId }) => {
         animating.current = false;
         setPopup(true);
 
-        // Calcular “mejor ronda”: ronda - 1
+        // Calcular "mejor ronda": ronda - 1
         const rondaMax = bestRoundRef.current > 0 ? bestRoundRef.current : ronda - 1;
         // Calcular tiempo en segundos desde startTimeRef
         const tiempoMs = Date.now() - startTimeRef.current;

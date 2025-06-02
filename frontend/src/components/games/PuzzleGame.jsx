@@ -139,14 +139,48 @@ const PuzzleGame = ({ perfilId, juegoId }) => {
   }, [completado]);
 
   return (
-    <PuzzleGameHTML
-      frase={frase}
-      seleccionadas={seleccionadas}
-      completado={completado}
-      handleSelect={handleSelect}
-      reiniciar={reiniciar}
-      showPlayAgain={showPlayAgain}
-    />
+    <div className="puzzle-container">
+      <h1 className="puzzle-title">Concentration Puzzle</h1>
+      <p className="puzzle-sub">Ordena la frase correctamente</p>
+
+      <div className="puzzle-grid">
+        {frase.map((p, i) => (
+          <button
+            key={i}
+            className={`puzzle-piece ${seleccionadas.includes(p) ? 'used' : ''}`}
+            onClick={() => handleSelect(p)}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+
+      <div className="puzzle-result">
+        {seleccionadas.map((p, i) => (
+          <span key={i} className="pieza-colocada">{p}</span>
+        ))}
+      </div>
+
+      {completado && <div className="puzzle-win">¡Correcto!</div>}
+
+      {showPlayAgain && (
+        <div className="puzzle-footer">
+          <PlayAgain onClick={reiniciar} />
+        </div>
+      )}
+
+      {/* Añadir el Footer */}
+      <footer className="site-footer">
+        <div className="footer-content">
+          <p className="footer-text">🌈 LingoKids World © 2025 — Aprende jugando</p>
+          <div className="footer-links">
+            <a href="/ayuda">❓ Ayuda</a>
+            <a href="/contacto">✉️ Contacto</a>
+            <a href="/privacidad">🔒 Privacidad</a>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 };
 
