@@ -318,10 +318,6 @@
   animation: fadeIn 0.5s ease-out;
 }
 
-.progreso-card {
-  animation: float 3s ease-in-out infinite;
-}
-
 /* TARJETAS DE PROGRESO INFANTILES */
 .progreso-lista {
   display: grid;
@@ -337,13 +333,11 @@
   border-radius: 20px;
   padding: 1.25rem;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
   font-family: 'Baloo 2', cursive;
   color: #333;
 }
 
 .card-progreso:hover {
-  transform: scale(1.02);
   background: linear-gradient(135deg, #fff9c4, #b2ebf2);
 }
 

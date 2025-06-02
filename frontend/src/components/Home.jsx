@@ -23,10 +23,10 @@ const Home = () => {
 
         <div className="circles">
           <a href={`/progreso/${perfilId}`} className="circle small link-circle">📈</a>
-          <div className="circle large avatar-container">
+          <a href="/avatar" className="circle large avatar-container">
             <img src={avatarUrl || '/img/avatar.png'} alt="Avatar" className="avatar-img" />
-          </div>
-          <a href="/amigos" className="circle small link-circle">👥</a>
+          </a>
+          <a href="/ayuda" className="circle small link-circle">❓</a>
         </div>
       </div>
 
