@@ -1,12 +1,47 @@
-.avatar-container {
+.page-wrapper {
+  /* No specific styles needed here unless for overall page background/margins */
+}
+
+.page-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  min-height: 300px;
+  background-color: #aed581; /* Placeholder color, will be behind image */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative; /* Needed for absolute positioning of the image */
+  overflow: hidden; /* Hide any overflow from the image */
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 36px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative; /* Ensure title is above the absolutely positioned image */
+  z-index: 2; /* Give title a higher stack order */
+}
+
+.header-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire header area */
+  z-index: 1; /* Place image behind the title */
+}
+
+.avatar-edit-container {
   max-width: 1200px;
   margin: auto;
-  margin-top: 4rem;
-  margin-bottom: 6rem;
   padding: 3rem 1.5rem;
   font-family: 'Baloo 2', cursive;
   text-align: center;
-  background: linear-gradient(to bottom, #fffde7, #e1f5fe);
+  background: linear-gradient(to bottom, #fffde7, #e1f5fe); /* Background for main content */
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -16,25 +51,21 @@
   align-items: center;
 }
 
-@media (min-width: 1000px) {
-  .avatar-container {
+@media (min-width: 768px) {
+  .avatar-edit-container {
     padding: 3rem 3rem;
   }
-}
-
-.background-wrap{
-  height: 300px;
 }
 
 .avatar-main-content {
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
   width: 100%;
   align-items: center;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 768px) {
   .avatar-main-content {
     flex-direction: row;
     align-items: center;
@@ -63,7 +94,6 @@
 .avatar-preview {
   width: 100%;
   height: auto;
-  min-width: 300px;
   transition: all 0.3s ease;
   border-radius: 16px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
@@ -92,7 +122,7 @@
 
 .avatar-preview:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Adjusted shadow */
 }
 
 .avatar-bloque {
@@ -105,6 +135,10 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.avatar-bloque:nth-child(1){
+  margin-top: 6rem;
 }
 
 .avatar-bloque h2 {
@@ -158,6 +192,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s, transform 0.2s;
   margin-top: 1rem;
+  margin-bottom: 6rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -215,44 +250,6 @@
   to {
     opacity: 1;
   }
-}
-
-.page-wrapper {
-
-}
-
-.page-header {
-  text-align: center;
-  padding: 2rem 1rem;
-  min-height: 300px;
-  background-color: #aed581; /* Placeholder color, will be covered by image */
-  /* background-image and background-size/position removed as img tag is used */
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-  position: relative; /* Needed for absolute positioning of the image */
-  overflow: hidden; /* Hide any overflow from the image */
-}
-
-.page-header h1 {
-  margin: 0;
-  font-size: 36px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  position: relative; /* Ensure title is above the absolutely positioned image */
-  z-index: 2; /* Give title a higher stack order */
-}
-
-.header-background-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cover the entire header area */
-  z-index: 1; /* Place image behind the title */
 }
 
 .site-footer {
