@@ -146,14 +146,14 @@ code {
 .float-bottom-right { bottom: 50px; right: 20px; --rotate: 20deg; }
 .float-center-top {
   top: 40px;
-  left: 46%;
+  left: 46.7%;
   transform: translateX(-50%);
   --rotate: 0deg;
 }
 
 .float-center-bottom {
   bottom: -20px;
-  left: 46%;
+  left: 46.7%;
   transform: translateX(-50%);
   --rotate: 0deg;
 }
@@ -323,11 +323,11 @@ code {
   }
 
   .float-top-left {
-    top: 40px;
+    top: 10px;
   }
 
   .float-top-right {
-    top: 40px;
+    top: 10px;
   }
 
   .float-bottom-left {
