@@ -1,84 +1,264 @@
 .avatar-container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 3rem 2rem;
-    font-family: 'Baloo 2', cursive;
-    text-align: center;
-    background: linear-gradient(to bottom, #fffde7, #e1f5fe);
-    border-radius: 50%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 4rem;
+  margin-bottom: 6rem;
+  padding: 3rem 1.5rem;
+  font-family: 'Baloo 2', cursive;
+  text-align: center;
+  background: linear-gradient(to bottom, #fffde7, #e1f5fe);
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .avatar-container {
+    padding: 3rem 3rem;
   }
-  
-  .avatar-title {
-    font-size: 40px;
-    color: #2e7d32;
-    margin-bottom: 2rem;
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
+}
+
+.background-wrap{
+  height: 300px;
+}
+
+.avatar-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 100%;
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .avatar-main-content {
+    flex-direction: row;
+    align-items: center;
   }
-  
-  .avatar-preview {
-    width: 220px;
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-    margin-bottom: 2.5rem;
-    border: 4px solid #c8e6c9;
-    background-color: white;
+}
+
+.avatar-preview-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar-options-section {
+  flex: 2;
+  width: 100%;
+}
+
+.avatar-preview-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.avatar-preview {
+  width: 100%;
+  height: auto;
+  min-width: 300px;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  border: 4px solid #c8e6c9;
+  background-color: white;
+}
+
+.avatar-preview.updating {
+  opacity: 0.7;
+  filter: blur(2px);
+}
+
+.preview-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  animation: fadeIn 0.3s ease;
+  z-index: 10;
+}
+
+.avatar-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.avatar-bloque {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar-bloque h2 {
+  font-size: 20px;
+  color: #3b3b3b;
+  margin-bottom: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.avatar-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.componente-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  padding: 4px;
+  border: 1pt solid rgba(128, 128, 128, 0.471);
+}
+
+.componente-img:hover {
+  transform: scale(1.1);
+  border-color: #aed581;
+  box-shadow: 0 0 10px rgba(139, 195, 74, 0.6);
+}
+
+.componente-img.seleccionado {
+  border-color: #4caf50;
+  box-shadow: 0 0 10px #66bb6a;
+}
+
+.guardar-btn {
+  padding: 0.75rem 2rem;
+  font-size: 20px;
+  background-color: #66bb6a;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-family: 'Baloo 2', cursive;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guardar-btn:hover {
+  background-color: #558b2f;
+  transform: translateY(-2px);
+}
+
+.save-modal {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+}
+
+.save-modal-content {
+  background-color: #4caf50;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.1rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  
-  .avatar-bloque {
-    margin-bottom: 2.5rem;
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  .avatar-bloque h2 {
-    font-size: 24px;
-    color: #3b3b3b;
-    margin-bottom: 1rem;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
   }
-  
-  .avatar-opciones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.2rem;
+  to {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  
-  .componente-img {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    background-color: #ffffff;
-    border-radius: 12px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    padding: 6px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .componente-img:hover {
-    transform: scale(1.07);
-    border-color: #aed581;
-    box-shadow: 0 0 12px rgba(139, 195, 74, 0.6);
+  to {
+    opacity: 1;
   }
-  
-  .componente-img.seleccionado {
-    border-color: #66bb6a;
-    box-shadow: 0 0 10px #81c784;
-  }
-  
-  .guardar-btn {
-    padding: 0.75rem 2rem;
-    font-size: 20px;
-    background-color: #66bb6a;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-family: 'Baloo 2', cursive;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .guardar-btn:hover {
-    background-color: #558b2f;
-    transform: translateY(-2px);
-  }
-  
+}
+
+.page-wrapper {
+
+}
+
+.page-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  min-height: 300px;
+  background-color: #aed581; /* Placeholder color, will be covered by image */
+  /* background-image and background-size/position removed as img tag is used */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative; /* Needed for absolute positioning of the image */
+  overflow: hidden; /* Hide any overflow from the image */
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 36px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative; /* Ensure title is above the absolutely positioned image */
+  z-index: 2; /* Give title a higher stack order */
+}
+
+.header-background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the entire header area */
+  z-index: 1; /* Place image behind the title */
+}
+
+.site-footer {
+  margin-top: 3rem;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+}

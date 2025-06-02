@@ -37,6 +37,39 @@ export function AuthProvider({ children }) {
       }
     } catch (err) {
       console.warn('Error al cargar el avatar:', err);
+      if (err.response && err.response.status === 404) {
+        console.log('Avatar not found, attempting to create default avatar...');
+        try {
+          const createResponse = await axios.post(
+            `http://localhost:8000/api/avatar/actualizar/${perfilId}/`, 
+            {}, 
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          console.log('Default avatar creation/update attempted:', createResponse.data);
+          if (createResponse.status === 200) {
+            console.log('Attempting to load avatar again after creation.');
+            await new Promise(resolve => setTimeout(resolve, 1000)); 
+            loadAvatar(perfilId);
+          }
+        } catch (createErr) {
+          console.error('Error attempting to create default avatar:', createErr);
+        }
+      } else {
+        console.error('Other error loading avatar:', err);
+      }
+      setAvatarUrl('/img/avatar_default.png');
+    }
+  };
+
+  const updateAvatar = async (perfilId, avatarData) => {
+    try {
+      // Assuming this is where you call the backend save endpoint
+      // Example: const response = await api.post(`/api/avatar/actualizar/${perfilId}/`, avatarData);
+      // After a successful save:
+      loadAvatar(perfilId); // This will refetch and update the avatar in context
+      console.log(`Avatar for perfil ${perfilId} updated successfully.`);
+    } catch (error) {
+      console.error('Error updating avatar:', error);
     }
   };
 
